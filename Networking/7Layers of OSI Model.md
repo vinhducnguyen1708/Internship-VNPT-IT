@@ -84,4 +84,73 @@ PPP, Frame Relay, IEEE 802.5/702.2,...
 * IPv6:
 ![ipv6](https://raw.githubusercontent.com/vinhducnguyen1708/Internship-VNPT-IT/master/images/Network2.png)
 
+* ## **Transport Layer**
+ *Sau khi tìm hiểu lớp Vận chuyển bạn sẽ nắm được*:
+ 
+ _ Mô tả mục đích và chức năng của lớp vận chuyển trong việc quản lý vận chuyển dữ liệu kết nối đầu cuối.
+ 
+ _ Mô tả đặc điểm và chức năng của giao thức UDP, TCP.
 
+ ![transport]()
+
+ ### *1. Chức năng, mục đích*:
+   * Transport layer có chức năng thiết lập một phiên kết nối tạm thời  và thực hiện truyền dữ liệu giữa 2 ứng dụng.
+* Transport layer cung cấp các dịch vụ như:
+   
+   - Kết nối-Định hướng hỗ trợ luồng dữ liệu
+   - Reliability - Độ tin cậy
+   - Folow Control - Kiểm soát lưu lượng
+   - Multiplexing - Ghép kênh
+
+* Theo dõi từng cuộc hội thoại riêng giữa ứng dụng nguồn và ứng dụng cuối.
+* Dữ liệu phân đoạn và tập hợp lại các phân đoạn bằng cách chia dữ liệu thành các segments để dễ quản lý và vận chuyển.
+
+ ### *2. UDP, TCP*:
+ * TCP
+    
+    ![tcp]()
+
+    + TCP transport đáng tin cậy vì hỗ trợ xác nhận gói vận chuyển.
+    + Tiến trình bắt tay 3 bước thiết lập kết nối.
+    
+    + Ứng dụng yêu cầu TCP : Databases, Web browsers, Email Clients,..
+    
++ UDP
+    
+    ![udp]()
+    + UDP cung cấp các chức năng cơ bản để phân phối dữ liệu giữa các ứng dụng rất nhanh.(Phù hợp cho các dịch vụ tránh delay, mất dữ liệu)
+    + Không yêu cầu thiết lập kết nối tin cậy
+    + Tốc độ cao hơn TCP
+    + Ứng dụng sử dụng UDP:Video(Audio) Streaming, Voice over IP(VoIP)
+
+* ## **Session Layer**
+   + Các chức năng ở Session layer tạo và duy trì dialog giữa ứng dụng nguồn và đích.
+   + Session Layer xử lý trao đổi thông tin để khởi động dialogs và giữ chúng hoạt động, khởi động lại các phiên bị gián đoạn hoặc không hoạt động trong một thời gian dài.
+
+* ## **Presentation Layer**
+  
+  ![presentation]()
+  
+  ### *1.Presentation Layer có 3 chức năng chính*:
+    
+    + Định dạng dữ liệu
+    + Nén dữ liệu
+    + Mã hóa dữ liệu
+
+  ### *2.Các định dạng đồ họa phổ biến*:
+    
+    - Graphics Interchange Format (GIF)
+    - Joint Photographic Experts Group (JPEG)
+    - Portable Network Graphics (PNG)
+
+* ## **Application Layer**
+
+![app]()
+ ### *1. Chức năng, mục đích*:
+ + Application layer là lớp gần nhất với người dùng đầu cuối
+ + Cho phép người dùng gửi và nhận dữ liệu dễ dàng.
+ + Application layer đóng vai trò là giao diện giữa ứng dụng và mạng lớp dưới
+ + Giúp trao đổi dữ liệu giữa các chương trình chạy trên máy chủ nguồn và đích
+ + Các giao thức lớp ứng dụng phổ biến: Hypertext Transfer Protocol (HTTP), File Transfer Protocol (FTP), Trivial File Transfer Protocol (TFTP), Internet Message Access Protocol (IMAP), and Domain Name System (DNS) protocol.
+
+     
