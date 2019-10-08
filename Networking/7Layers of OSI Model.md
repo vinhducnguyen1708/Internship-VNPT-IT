@@ -12,7 +12,7 @@
 
 ## 2. Các Layers trong mô hình OSI
   
- * ## **Physical Layer**
+ *  ## **2.1 Physical Layer**
 *Sau khi tìm hiểu lớp Vật Lý bạn sẽ nắm được*:
 
 _ Nhận dạng các tùy chọn thiết bị kết nối
@@ -21,14 +21,14 @@ _ Mô tả mục đích và chức năng của lớp trong mạng
 
 _ Mô tả nguyên tắc cơ bản về tiêu chuẩn của lớp
 
-### *1. Thiết bị mạng*
+### *2.1.1. Thiết bị mạng*
 ![image](https://raw.githubusercontent.com/vinhducnguyen1708/Internship-VNPT-IT/master/images/Physical1.png)
 
 VD: AP(Access Point) Cung cấp một thành phần chuyển mạch với nhiều cổng, cho phép nhiều thiết bị được kết nối với mạng cục bộ (LAN) bằng cáp,..
 
 Ethernet NICs(Network Interface Cards) dùng để kết nối Internet khi sử dụng dây kết nối.
 
-### *2.Chức năng*
+### *2.1.2.Chức năng*
 
 * Lớp Physical trong mô hình OSI cung cấp phương tiện để vận chuyển các bit để đưa lên hoặc nhận từ lớp Data Link
 * Lớp Physical nhận một khung (frame) hoàn chỉnh từ lớp Data link và mã hõa frame đó thành chuỗi tín hiệu điện, quang, vô tuyến để truyền đi đến các thiết bị trung gian hoặc thiết bị đầu cuối.
@@ -36,14 +36,14 @@ Ethernet NICs(Network Interface Cards) dùng để kết nối Internet khi sử
 
 ![image](https://raw.githubusercontent.com/vinhducnguyen1708/Internship-VNPT-IT/master/images/Physical2.png)
 
-### *3.Các chuẩn *
+### *2.1.3.Các chuẩn *
 _ Cáp đồng, Cáp quang, Vô tuyến
 
 _ ISO, EIA/TIA, ITU-T, ANSI, IEEE
 
 
 
- * ## **Data Link Layer**
+ * ## **2.2 Data Link Layer**
 *Sau khi tìm hiểu lớp Liên kết dữ liệu bạn sẽ nắm được*:
 
 _ Mô tả mục đích và chức năng của Data Link Layer trong việc truyền trong môi trường mạng
@@ -51,23 +51,23 @@ _ Mô tả mục đích và chức năng của Data Link Layer trong việc truy
 ![image](https://raw.githubusercontent.com/vinhducnguyen1708/Internship-VNPT-IT/master/images/datalink.png)
 
 
-### *1.Chức năng*:
+### *2.2.1.Chức năng*:
 * Cho phép các lớp trên truy nhập qua các phương tiện
 * Nhận gói (packet) ở lớp 3 rồi đóng gói thành khung (frame).
 * Chuẩn bị dữ liệu mạng cho lớp Physical.
 * Kiểm soát dữ liệu (kiểm tra lỗi, kiểm soát luồng) được nhận và đặt trên phương tiện
 * Trao đổi khung giữa các phương tiện ở lớp vật lý bằng UTP, cáp quang,..
 * Nhận và chuyển các gói đến giao thức ở lớp trên.
-### *2.Các Protocols*:
+### *2.2.2 Các Protocols*:
 PPP, Frame Relay, IEEE 802.5/702.2,...
 
 
- * ## **Network Layer**
+ * ## **2.3 Network Layer**
  *Sau khi tìm hiểu lớp Mạng bạn sẽ nắm được*:
  
  _ Mô tả mục đích của Network Layer trong giao tiếp dữ liệu
  _ IPv4, IPv6
- ### *1.Chức năng, mục đích*:
+ ### *2.3.1.Chức năng, mục đích*:
  * Network Layer cung cấp các dịch vụ để cho phép các thiết bị đầu cuối trao đổi dữ liệu trên mạng. 
 
 ![Network](https://raw.githubusercontent.com/vinhducnguyen1708/Internship-VNPT-IT/master/images/Network.png)
@@ -78,13 +78,13 @@ PPP, Frame Relay, IEEE 802.5/702.2,...
  3. Routing (Định tuyến): Network layer cung cấp dịch vụ truyền các gói trực tiếp đến đích của mạng khác. Để truyền đến các mạng khác, gói phải được xử lý bởi bộ định tuyến. Vai trò của bộ định tuyến là chọn đường đi tốt nhất và các gói gửi trực tiếp đến đích. Mỗi bộ định tuyến gói đi qua được gọi là hop (bước nhảy).
  4. De-Encapsulation(Giải đóng gói): Khi gói đến Network layer phía đích, máy chủ sẽ kiểm tra tiêu đề của gói IP. Nếu địa chỉ IP đích khớp với địa chỉ IP của nó, tiêu đề IP sẽ bị xóa khỏi gói. Sau khi gói đó sẽ được giải đóng gói bằng Network layer và kết quả là được chuyển lên Transport layer.
 
- ### *2.IPv4, IPv6*:
+ ### *2.3.2.IPv4, IPv6*:
 * IPv4:
 ![ipv4](https://raw.githubusercontent.com/vinhducnguyen1708/Internship-VNPT-IT/master/images/Network1.png)
 * IPv6:
 ![ipv6](https://raw.githubusercontent.com/vinhducnguyen1708/Internship-VNPT-IT/master/images/Network2.png)
 
-* ## **Transport Layer**
+* ## **2.4 Transport Layer**
  *Sau khi tìm hiểu lớp Vận chuyển bạn sẽ nắm được*:
  
  _ Mô tả mục đích và chức năng của lớp vận chuyển trong việc quản lý vận chuyển dữ liệu kết nối đầu cuối.
@@ -93,7 +93,7 @@ PPP, Frame Relay, IEEE 802.5/702.2,...
 
  ![transport]()
 
- ### *1. Chức năng, mục đích*:
+ ### *2.4.1. Chức năng, mục đích*:
    * Transport layer có chức năng thiết lập một phiên kết nối tạm thời  và thực hiện truyền dữ liệu giữa 2 ứng dụng.
 * Transport layer cung cấp các dịch vụ như:
    
@@ -105,7 +105,7 @@ PPP, Frame Relay, IEEE 802.5/702.2,...
 * Theo dõi từng cuộc hội thoại riêng giữa ứng dụng nguồn và ứng dụng cuối.
 * Dữ liệu phân đoạn và tập hợp lại các phân đoạn bằng cách chia dữ liệu thành các segments để dễ quản lý và vận chuyển.
 
- ### *2. UDP, TCP*:
+ ### *2.4.2. UDP, TCP*:
  * TCP
     
     ![tcp]()
@@ -123,30 +123,30 @@ PPP, Frame Relay, IEEE 802.5/702.2,...
     + Tốc độ cao hơn TCP
     + Ứng dụng sử dụng UDP:Video(Audio) Streaming, Voice over IP(VoIP)
 
-* ## **Session Layer**
+* ## **2.5 Session Layer**
    + Các chức năng ở Session layer tạo và duy trì dialog giữa ứng dụng nguồn và đích.
    + Session Layer xử lý trao đổi thông tin để khởi động dialogs và giữ chúng hoạt động, khởi động lại các phiên bị gián đoạn hoặc không hoạt động trong một thời gian dài.
 
-* ## **Presentation Layer**
+* ## **2.6 Presentation Layer**
   
   ![presentation]()
   
-  ### *1.Presentation Layer có 3 chức năng chính*:
+  ### *2.6.1.Presentation Layer có 3 chức năng chính*:
     
     + Định dạng dữ liệu
     + Nén dữ liệu
     + Mã hóa dữ liệu
 
-  ### *2.Các định dạng đồ họa phổ biến*:
+  ### *2.6.2.Các định dạng đồ họa phổ biến*:
     
     - Graphics Interchange Format (GIF)
     - Joint Photographic Experts Group (JPEG)
     - Portable Network Graphics (PNG)
 
-* ## **Application Layer**
+* ## **2.7 Application Layer**
 
 ![app]()
- ### *1. Chức năng, mục đích*:
+ ### *2.7.1. Chức năng, mục đích*:
  + Application layer là lớp gần nhất với người dùng đầu cuối
  + Cho phép người dùng gửi và nhận dữ liệu dễ dàng.
  + Application layer đóng vai trò là giao diện giữa ứng dụng và mạng lớp dưới
