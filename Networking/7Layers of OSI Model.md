@@ -36,7 +36,7 @@ Ethernet NICs(Network Interface Cards) dùng để kết nối Internet khi sử
 
 ![image](https://raw.githubusercontent.com/vinhducnguyen1708/Internship-VNPT-IT/master/images/Physical2.png)
 
-### *3.Các chuẩn *
+### *3.Các chuẩn*
 _ Cáp đồng, Cáp quang, Vô tuyến
 
 _ ISO, EIA/TIA, ITU-T, ANSI, IEEE
