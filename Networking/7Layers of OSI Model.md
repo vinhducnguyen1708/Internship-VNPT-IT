@@ -129,7 +129,7 @@ PPP, Frame Relay, IEEE 802.5/702.2,...
 
 * ## **Presentation Layer**
   
-  ![presentation]()
+  ![presentation](https://raw.githubusercontent.com/vinhducnguyen1708/Internship-VNPT-IT/master/images/Presentation.png)
   
   ### *1.Presentation Layer có 3 chức năng chính*:
     
