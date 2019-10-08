@@ -36,7 +36,11 @@ Ethernet NICs(Network Interface Cards) dùng để kết nối Internet khi sử
 
 ![image](https://raw.githubusercontent.com/vinhducnguyen1708/Internship-VNPT-IT/master/images/Physical2.png)
 
+<<<<<<< HEAD
 ### *2.1.3.Các chuẩn *
+=======
+### *3.Các chuẩn*
+>>>>>>> 224e6a1e9ee28d504df32bc39f8b9f4a9ec5d0c9
 _ Cáp đồng, Cáp quang, Vô tuyến
 
 _ ISO, EIA/TIA, ITU-T, ANSI, IEEE
@@ -91,7 +95,7 @@ PPP, Frame Relay, IEEE 802.5/702.2,...
  
  _ Mô tả đặc điểm và chức năng của giao thức UDP, TCP.
 
- ![transport]()
+ ![transport](https://raw.githubusercontent.com/vinhducnguyen1708/Internship-VNPT-IT/master/images/transport.png)
 
  ### *2.4.1. Chức năng, mục đích*:
    * Transport layer có chức năng thiết lập một phiên kết nối tạm thời  và thực hiện truyền dữ liệu giữa 2 ứng dụng.
@@ -108,7 +112,7 @@ PPP, Frame Relay, IEEE 802.5/702.2,...
  ### *2.4.2. UDP, TCP*:
  * TCP
     
-    ![tcp]()
+    ![tcp](https://raw.githubusercontent.com/vinhducnguyen1708/Internship-VNPT-IT/master/images/tcp.png)
 
     + TCP transport đáng tin cậy vì hỗ trợ xác nhận gói vận chuyển.
     + Tiến trình bắt tay 3 bước thiết lập kết nối.
@@ -117,7 +121,7 @@ PPP, Frame Relay, IEEE 802.5/702.2,...
     
 + UDP
     
-    ![udp]()
+    ![udp](https://raw.githubusercontent.com/vinhducnguyen1708/Internship-VNPT-IT/master/images/udp.png)
     + UDP cung cấp các chức năng cơ bản để phân phối dữ liệu giữa các ứng dụng rất nhanh.(Phù hợp cho các dịch vụ tránh delay, mất dữ liệu)
     + Không yêu cầu thiết lập kết nối tin cậy
     + Tốc độ cao hơn TCP
@@ -129,7 +133,7 @@ PPP, Frame Relay, IEEE 802.5/702.2,...
 
 * ## **2.6 Presentation Layer**
   
-  ![presentation]()
+  ![presentation](https://raw.githubusercontent.com/vinhducnguyen1708/Internship-VNPT-IT/master/images/Presentation.png)
   
   ### *2.6.1.Presentation Layer có 3 chức năng chính*:
     
@@ -145,12 +149,18 @@ PPP, Frame Relay, IEEE 802.5/702.2,...
 
 * ## **2.7 Application Layer**
 
+<<<<<<< HEAD
 ![app]()
  ### *2.7.1. Chức năng, mục đích*:
+=======
+![app](https://raw.githubusercontent.com/vinhducnguyen1708/Internship-VNPT-IT/master/images/App.png)
+ ### *1. Chức năng, mục đích*:
+>>>>>>> 224e6a1e9ee28d504df32bc39f8b9f4a9ec5d0c9
  + Application layer là lớp gần nhất với người dùng đầu cuối
  + Cho phép người dùng gửi và nhận dữ liệu dễ dàng.
  + Application layer đóng vai trò là giao diện giữa ứng dụng và mạng lớp dưới
  + Giúp trao đổi dữ liệu giữa các chương trình chạy trên máy chủ nguồn và đích
  + Các giao thức lớp ứng dụng phổ biến: Hypertext Transfer Protocol (HTTP), File Transfer Protocol (FTP), Trivial File Transfer Protocol (TFTP), Internet Message Access Protocol (IMAP), and Domain Name System (DNS) protocol.
 
+![app2](https://raw.githubusercontent.com/vinhducnguyen1708/Internship-VNPT-IT/master/images/app2.png)
      
