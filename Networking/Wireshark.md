@@ -4,13 +4,13 @@
 
 - Chọn interface kết nối với internet:
 
-![interface]()
+![interface](https://raw.githubusercontent.com/vinhducnguyen1708/Internship-VNPT-IT/master/images/wsh4.png)
 
 - Mở trình duyệt kết nối tới google.com ,fb.com, youtube.com,...
 - Lựa chọn dạng bản tin
 
 + Ví dụ: xem bản tin khi truy nhập fb.com
-     
+     ![goi](https://raw.githubusercontent.com/vinhducnguyen1708/Internship-VNPT-IT/master/images/wireshark.png)
      + Phân giải tên miền thành địa chỉ: 31.13.95.36
      + Sử dụng protocol:
         
@@ -18,7 +18,7 @@
        + TLSv1.3 (Transport layer Security)- Giao thức bảo mật tầng Transport
     + Thông tin bản tin :
       
-      ![info]()
+      ![info](https://raw.githubusercontent.com/vinhducnguyen1708/Internship-VNPT-IT/master/images/wsh3.png)
       
       *VD: Bản tin từ server đến client*
       + Time to live: 86
@@ -32,5 +32,6 @@
          _ Sequence number(4766)- đánh số thứ tự bản tin
          _ Segment Length(35) Độ dài segment
       + Transport layer Security: Thông tin version, mã hóa dữ liệu.
-      +
+      
+     ![TLS](https://raw.githubusercontent.com/vinhducnguyen1708/Internship-VNPT-IT/master/images/wsh2.png)
       
