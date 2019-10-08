@@ -44,7 +44,7 @@ _ ISO, EIA/TIA, ITU-T, ANSI, IEEE
 
 
  * ## **Data Link Layer**
-*Sau khi tìm hiểu lớp Vật Lý bạn sẽ nắm được*:
+*Sau khi tìm hiểu lớp Liên kết dữ liệu bạn sẽ nắm được*:
 
 _ Mô tả mục đích và chức năng của Data Link Layer trong việc truyền trong môi trường mạng
 
@@ -63,7 +63,7 @@ PPP, Frame Relay, IEEE 802.5/702.2,...
 
 
  * ## **Network Layer**
- *Sau khi tìm hiểu lớp Vật Lý bạn sẽ nắm được*:
+ *Sau khi tìm hiểu lớp Mạng bạn sẽ nắm được*:
  
  _ Mô tả mục đích của Network Layer trong giao tiếp dữ liệu
  _ IPv4, IPv6
