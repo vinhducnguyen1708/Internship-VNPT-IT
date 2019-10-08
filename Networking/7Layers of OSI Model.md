@@ -36,11 +36,7 @@ Ethernet NICs(Network Interface Cards) dùng để kết nối Internet khi sử
 
 ![image](https://raw.githubusercontent.com/vinhducnguyen1708/Internship-VNPT-IT/master/images/Physical2.png)
 
-<<<<<<< HEAD
-### *2.1.3.Các chuẩn *
-=======
-### *3.Các chuẩn*
->>>>>>> 224e6a1e9ee28d504df32bc39f8b9f4a9ec5d0c9
+### *2.1.3.Các chuẩn*
 _ Cáp đồng, Cáp quang, Vô tuyến
 
 _ ISO, EIA/TIA, ITU-T, ANSI, IEEE
@@ -149,13 +145,9 @@ PPP, Frame Relay, IEEE 802.5/702.2,...
 
 * ## **2.7 Application Layer**
 
-<<<<<<< HEAD
-![app]()
  ### *2.7.1. Chức năng, mục đích*:
-=======
 ![app](https://raw.githubusercontent.com/vinhducnguyen1708/Internship-VNPT-IT/master/images/App.png)
  ### *1. Chức năng, mục đích*:
->>>>>>> 224e6a1e9ee28d504df32bc39f8b9f4a9ec5d0c9
  + Application layer là lớp gần nhất với người dùng đầu cuối
  + Cho phép người dùng gửi và nhận dữ liệu dễ dàng.
  + Application layer đóng vai trò là giao diện giữa ứng dụng và mạng lớp dưới
