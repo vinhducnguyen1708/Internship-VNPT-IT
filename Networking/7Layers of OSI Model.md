@@ -156,3 +156,7 @@ PPP, Frame Relay, IEEE 802.5/702.2,...
 
 ![app2](https://raw.githubusercontent.com/vinhducnguyen1708/Internship-VNPT-IT/master/images/app2.png)
      
+___
+## Tài liệu tham khảo:
+
++ [Slide "Introduction of Network" in CCNA Course ](https://itexamanswers.net/ccna-semester-1-v6-0-study-materials-labs-online-course.html)
