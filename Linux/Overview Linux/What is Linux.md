@@ -3,9 +3,11 @@
 # Mục lục
 * [1. Khái niệm và lịch sử Linux ]( #1 )
 
-* [2. Quá trình phát triển](#2)
+* [2. Đặc điểm của Linux](#2)
 
-* [3. Kernel](#3)
+* [3. Quá trình phát triển](#3)
+
+* [4. Kernel](#4)
 
 * [ Tham khảo ](#tk)
 
@@ -24,7 +26,49 @@
 
 
 <a name = '2'></a>
-## 2. Quá trình phát triển của Linux
+## 2. Đặc điểm của Linux
+
+- Linh hoạt, uyển chuyển
+    
+    *Giải thích*
+    
+    + Linux là một Hệ điều hành mã nguồn mở nên có thể sửa theo ý mình. 
+    + Có thể sửa Linux và các ứng dụng trên tùy cho phù hợp với mình.
+    + VDss: không thể Việt hóa Windows nếu không có sự đồng ý và hỗ trợ của Microsoft. Nhưng điều này có thể làm đơn giản hơn với Linux.
+    + Linux có một cộng đồng phát triển phần mềm rất lớn nên sẽ có rất nhiều sự lựa chọn cho yêu cầu của bạn.
+
+-  Độ an toàn cao
+
+    *Giải thích*
+
+    + Linux có cấu trúc phân quyền rõ ràng:
+        + Chỉ có " root " ( người dùng tối cao) mới có quyền cài đặt và thay đổi hệ thống.
+        + Cũng có cơ chế để người dùng bình thường có thể chuyển tạm thời sang quyền " root " để thực hiện 1 số thao tác.
+        + Giúp cho hệ thống chạy ổn định, tránh đổ vỡ.
+        + VDss: Phiên bản gần đây Window cũng có cơ chế phân quyền nhưng vẫn kém chặt chẽ với linux.
+        + Nếu có lỗ hổng hoặc bug thì sẽ được cộng đồng sửa chữa sau 24h
+
+- Chạy thống nhất trên các hệ thống phần cứng:
+
+    *Giải thích*
+
+    + Dù có nhiều phiên bản, nhưng nhìn chung đều chạy khá ổn định trên mọi thiết bị phần cứng.
+    + VDss: Windows cập nhật hệ điều hành mới thì cũng kèm cơn khát về phần cứng vì không hỗ trợ thiết bị cũ.
+ - Thích hợp cho quản trị
+    
+    *Giải thích*
+
+    + VDss: Windows là hệ điều hành thích hợp vs máy tính desktop thì Linux là hệ điều hành thích hợp với server.
+    + Các ưu điểm thỏa mãn đòi hỏi của hệ điều hành mạng:
+        
+        - Tính bảo mật cao
+        - Chạy ổn định
+        - Chia sẻ tài nguyên tốt
+    ( Giao thức TCP/Ip chính là một giao thức truyền tin của Linux, sau này mới được đưa vào Windows) 
+
+
+<a name = '3'></a>
+## 3. Quá trình phát triển của Linux
 
 - Vào 05/10/1991, Linus đã công bố phiên bản Linux chính thức đầu tiên của Linux, phiên bản 0.02 
 
@@ -37,8 +81,8 @@
 
     + Nhiều nhà phát triển bắt đầu bằng cách viết các ứng dụng cho Linux và chuyển chúng sang các hệ thống Unix khác sau đó. Nhiều phần cứng được hỗ trợ hơn trong các phiên bản gốc của kernel. 
 
-<a name = '3'></a>
-## 3. Kernel
+<a name = '4'></a>
+## 4. Kernel
 
 ### Khái niệm:
  - Nhân hệ điều hành (Kernel): là thành phần trung tâm của hầu hết các hệ điều hành máy tính.
@@ -84,3 +128,5 @@
 [2] https://www.oreilly.com/library/view/running-linux-third/156592469X/ch01s02.html
 
 [3] https://manthang.wordpress.com/2010/10/30/co-che-protection-rings-trong-bao-mat-may-tinh/
+
+[4] https://lmt.com.vn/cong-nghe/computer/302-cac-uu-diem-cua-he-dieu-hanh-linux.html
