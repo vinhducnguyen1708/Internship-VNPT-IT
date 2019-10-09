@@ -59,7 +59,7 @@ _ Mô tả mục đích và chức năng của Data Link Layer trong việc truy
 * Trao đổi khung giữa các phương tiện ở lớp vật lý bằng UTP, cáp quang,..
 * Nhận và chuyển các gói đến giao thức ở lớp trên.
 ### *2.2.2.Lớp con của Data Link Layer*:
-![LLCMAC]()
+![LLCMAC](https://raw.githubusercontent.com/vinhducnguyen1708/Internship-VNPT-IT/master/images/datalink3.png)
  * Logical Link Control (LLC): Đây là lớp con trên để giao tiếp với Network layer. Lớp này đặt thông tin định danh Protocol nào của lớp network đang được sử dụng trong khung.
  * Media Access Control (MAC): Đây là lớp con dưới để nhận dạng phương tiện truy nhập bởi phần cứng. Lớp này cung cấp địa chỉ của Data Link layer và truy nhập đến nhiều công nghệ mạng. 
 ### *2.2.3 Các Protocols*:
