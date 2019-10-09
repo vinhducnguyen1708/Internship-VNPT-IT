@@ -64,7 +64,7 @@
 
 * Các Ring được sắp xếp có thứ bậc, từ mức có nhiều đặc quyền nhất (dành cho trusted-software, thường được đánh số 0) đến mức có ít đặc quyền nhất (dành cho untrusted-software, được đánh số cao nhất). 
 
-![protectionrings]()
+![protectionrings](../images/protectionrings)
 
 * Thông thường thì chỉ sử dụng 2 ring:
     
