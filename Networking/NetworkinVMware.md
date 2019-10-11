@@ -64,7 +64,7 @@ Kiểm tra xem card mạng ảo kết nối đã được bật chưa:
 
  ![bridge](../images/vmbrigde.png)
 
-*Chế độ Bridge đơn giản là gắn trực tiếp vào switch vật lý của máy tính để đi ra mạng ngoài *
+*Chế độ Bridge đơn giản là gắn trực tiếp vào switch vật lý của máy tính và có cùng dải địa chỉ IP để đi ra mạng ngoài*
 
  * Chế độ NAT: ở chế độ này, card mạng của máy ảo kết nối với VMnet8, VNnet8 cho phép máy ảo đi ra mạng vật lý bên ngoài internet thông qua cơ chế NAT (NAT device). Lúc này lớp mạng bên trong máy ảo khác hoàn toàn với lớp mạng của card vật lý bên ngoài, hai mạng hoàn toàn tách biệt. IP của card mạng máy ảo sẽ được cấp bởi DHCP của VMnet8, trong trường hợp bạn muốn thiết lập IP tĩnh cho card mạng máy ảo bạn phải đảm bảo chung lớp mạng với VNnet8 thì máy ảo mới có thể đi internet.
 
