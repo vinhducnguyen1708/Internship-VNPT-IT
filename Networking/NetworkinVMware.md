@@ -24,10 +24,8 @@
 
 - Máy chủ DHCP ảo
     
-    * 
+    * DHCP (Dynamic Host Configuration) server ảo đảm nhiệm việc cung cấp địa chỉ IP cho các máy ảo trong việc kết nối máy ảo vào các Switch ảo không có tính năng Bridged (VMnet0).  DHCP  server ảo cấp phát địa chỉ IP cho các máy ảo có kết nối với VMnet Host-only và NAT.
 - Thiết bị NAT
-    
-    * 
 
 <a name = '2'></a>
 
