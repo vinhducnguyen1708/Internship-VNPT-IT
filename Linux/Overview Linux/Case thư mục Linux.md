@@ -16,6 +16,10 @@
 
 ![compare](../../images/compare.jpg)
 
+* Linux phân chia thành các thư mục từ thư mục gốc (/) (gọi là thư mục root)
+
+* Windows phân chia thành các ổ đĩa logic như C: ,D: ,E: ...
+
 <a name = '2'></a>
 
 ## 2. Các thư mục trong Linux 
