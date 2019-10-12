@@ -24,10 +24,8 @@
 
 - Máy chủ DHCP ảo
     
-    * 
+    * DHCP (Dynamic Host Configuration) server ảo đảm nhiệm việc cung cấp địa chỉ IP cho các máy ảo trong việc kết nối máy ảo vào các Switch ảo không có tính năng Bridged (VMnet0).  DHCP  server ảo cấp phát địa chỉ IP cho các máy ảo có kết nối với VMnet Host-only và NAT.
 - Thiết bị NAT
-    
-    * 
 
 <a name = '2'></a>
 
@@ -35,7 +33,7 @@
 
 ### Các bộ chuyển mạch ảo
 
-![adapter](adaptervm.png)
+![adapter](../images/adaptervm.png)
 *Giải thích*
 
 
@@ -46,11 +44,11 @@
 
 Kiểm tra xem card mạng ảo kết nối đã được bật chưa:
 
-![vmnet5](vmnet5.png)
+![vmnet5](../images/vmnet5.png)
 
 ### Các Network adapters ảo
 
-![vmcard](vmcard.png)
+![vmcard](../images/vmcard.png)
    
    * [1.] Tạo thêm card mạng   
 
@@ -64,19 +62,21 @@ Kiểm tra xem card mạng ảo kết nối đã được bật chưa:
 
  * Chế độ Bridge: ở chế độ này, card mạng trên máy ảo được gắn vào VMnet0, VMnet0 này liên kết trực tiếp với card mạng vật lý trên máy thật, máy ảo lúc này sẽ kết nối internet thông qua  card mạng vật lý và có chung lớp mạng với card mạng vật lý.
 
- ![bridge](vmbrigde.png)
+ ![bridge](../images/vmbrigde.png)
 
-*Chế độ Bridge đơn giản là gắn trực tiếp vào switch vật lý của máy tính*
+*Chế độ Bridge đơn giản là gắn trực tiếp vào switch vật lý của máy tính và có cùng dải địa chỉ IP để đi ra mạng ngoài*
 
  * Chế độ NAT: ở chế độ này, card mạng của máy ảo kết nối với VMnet8, VNnet8 cho phép máy ảo đi ra mạng vật lý bên ngoài internet thông qua cơ chế NAT (NAT device). Lúc này lớp mạng bên trong máy ảo khác hoàn toàn với lớp mạng của card vật lý bên ngoài, hai mạng hoàn toàn tách biệt. IP của card mạng máy ảo sẽ được cấp bởi DHCP của VMnet8, trong trường hợp bạn muốn thiết lập IP tĩnh cho card mạng máy ảo bạn phải đảm bảo chung lớp mạng với VNnet8 thì máy ảo mới có thể đi internet.
 
-![nat](vmNat.png)
+![nat](../images/vmNat.png)
 
  *Chế độ NAT dùng để chuyển dịch địa chỉ từ IP private thành IP public để đi ra mạng ngoài*
 
 * Cơ chế Host-only:  máy ảo được kết nối với VMnet có tính năng Host-only, trong trường hợp này là VMnet1 . VNnet Host-only kết nối với  một card mạng ảo tương ứng ngoài máy thật (như đã nói ở phần trên). Ở chế độ này,  các máy ảo không có kết nối vào mạng vật lý bên ngoài hay internet thông qua máy thật , có nghĩa là mạng VMnet Host-only và mạng vật lý hoàn toàn tách biệt. IP của máy ảo được cấp bởi DHCP của VMnet tương ứng. Trong nhiều trường hợp đặc biệt cần cấu hình riêng, ta có thể tắt DHCP trên VMnet và cấu hình IP bằng tay cho máy ảo.
 
-![vmhost](vmhost.png)
+![vmhost](../images/vmhost.png)
+
+*Vmnet1 cũng là 1 Switch ảo nhưng chỉ sử dụng để kết nối máy thật và máy ảo trong máy tính cài VMWare. Bản thân VMnet1 được kết nối với Virtual DHCP Server để cấp IP động cho những máy kế nối vào nó
 
 ---
 <a name = 'tk'></a>
