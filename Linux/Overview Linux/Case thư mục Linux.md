@@ -39,9 +39,9 @@
     - Note: /root là thư mục của root user , không giống /.
 - **/Bin**
 
-![thumucbin](../../images/thumucbin.png)
-  - Chứa các files thực thi nhị phân .
-  - Linux command sử dụng bởi tất cả users của hệ thống được đặt ở đây .
+  ![thumucbin](../../images/thumucbin.png)
+    - Chứa các files thực thi nhị phân .
+    - Linux command sử dụng bởi tất cả users của hệ thống được đặt ở đây .
     - Ví dụ : ps ,ls ,ping ,grep ,cp ,...
 - **/ boot:**
   - Giữ các tệp quan trọng trong quá trình khởi động.
@@ -52,20 +52,20 @@
     - Ví dụ: cdrom, cpu...
 - **/etc:**
 
-![thumucetc](../../images/thumucetc.png)
-  - Chứa files cấu hình yêu cầu bởi tất cả các programs.
-  - /etc kiểm soát cách hệ điều hành hoặc các ứng dụng hoạt động.
+  ![thumucetc](../../images/thumucetc.png)
+    - Chứa files cấu hình yêu cầu bởi tất cả các programs.
+    - /etc kiểm soát cách hệ điều hành hoặc các ứng dụng hoạt động.
     - Ví dụ, có một tệp trong /etc đó cho hệ điều hành biết nên khởi động vào chế độ văn bản hay chế độ đồ họa.
 - **/home:**
 
-  - Thư mục chính của người dùng. Mỗi khi người dùng mới được tạo, một thư mục có tên người dùng sẽ được tạo trong thư mục chính có chứa các thư mục khác như Desktop , Tải xuống , Tài liệu...
+    - Thư mục chính của người dùng. Mỗi khi người dùng mới được tạo, một thư mục có tên người dùng sẽ được tạo trong thư mục chính có chứa các thư mục khác như Desktop , Tải xuống , Tài liệu...
 
 - **/lib:**
 
-![thumuclib](../../images/thumuclib.png)
-  - Thư mục /lib là một thư mục tệp thư viện chứa tất cả các tệp thư viện hữu ích được sử dụng bởi hệ thống. Nói một cách đơn giản, đây là những tệp hữu ích được sử dụng bởi một ứng dụng hoặc một lệnh hoặc một quy trình để thực hiện đúng nghiệm vụ của nó. Các lệnh trong  tệp thư viện động được đặt ngay trong thư mục /bin hoặc /sbin.
-  - /lib Chứa các tệp thư viện hỗ trợ các tệp nhị phân nằm dưới /bin và /sbin.
-  - /lib chứa thư viện dùng chung cần thiết để khởi động hệ thống và chạy các lệnh trong hệ thống tệp gốc.
+  ![thumuclib](../../images/thumuclib.png)
+    - Thư mục /lib là một thư mục tệp thư viện chứa tất cả các tệp thư viện hữu ích được sử dụng bởi hệ thống. Nói một cách đơn giản, đây là những tệp hữu ích được sử dụng bởi một ứng dụng hoặc một lệnh hoặc một quy trình để thực hiện đúng nghiệm vụ của nó. Các lệnh trong  tệp thư viện động được đặt ngay trong thư mục /bin hoặc /sbin.
+    - /lib Chứa các tệp thư viện hỗ trợ các tệp nhị phân nằm dưới /bin và /sbin.
+    - /lib chứa thư viện dùng chung cần thiết để khởi động hệ thống và chạy các lệnh trong hệ thống tệp gốc.
 - **/media:**
   - Thư mục /media chứa các thư mục con nơi các thiết bị phương tiện di động được lắp vào máy tính được gắn kết lại. 
     - Ví dụ: khi ta đưa đĩa CD vào hệ thống Linux, một thư mục sẽ tự động được tạo bên trong thư mục /media. ta có thể truy cập nội dung của đĩa CD trong thư mục này.
