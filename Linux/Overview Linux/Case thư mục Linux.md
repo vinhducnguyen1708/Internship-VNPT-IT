@@ -1,4 +1,4 @@
-# Hệ thống thư mộc trong Linux
+# Hệ thống thư mục trong Linux
 
 # Mục lục
 
