@@ -1,4 +1,4 @@
-# Hệ thống thư mộc trong Linux
+# Hệ thống thư mục trong Linux
 
 # Mục lục
 
@@ -14,7 +14,11 @@
 
 ## 1. So sánh thư mục Linux với Windows
 
-![compare](../../compare.jpg)
+![compare](../../images/compare.jpg)
+
+* Linux phân chia thành các thư mục từ thư mục gốc (/) (gọi là thư mục root)
+
+* Windows phân chia thành các ổ đĩa logic như C: ,D: ,E: ...
 
 <a name = '2'></a>
 
@@ -22,22 +26,22 @@
 
 ###  2.1 Cấu trúc hệ thống file
 
-![thumuclinux](../../thumuclinux2.jpeg)
+![thumuclinux](../../images/thumuclinux2.jpeg)
 
 
 
 ### 2.2 Các thư mục trong Linux
 
-![thumuclinux](../../thumuclinux.png)
+![thumuclinux](../../images/thumuclinux.png)
 - **/(root drectory):** 
   - Tất cả mọi file và thư mục bắt đầu từ thư mục root .
   - Chỉ root user có chỉnh sửa trong thư mục này .
     - Note: /root là thư mục của root user , không giống /.
 - **/Bin**
 
-![thumucbin](../../thumucbin.png)
-  - Chứa các files thực thi nhị phân .
-  - Linux command sử dụng bởi tất cả users của hệ thống được đặt ở đây .
+  ![thumucbin](../../images/thumucbin.png)
+    - Chứa các files thực thi nhị phân .
+    - Linux command sử dụng bởi tất cả users của hệ thống được đặt ở đây .
     - Ví dụ : ps ,ls ,ping ,grep ,cp ,...
 - **/ boot:**
   - Giữ các tệp quan trọng trong quá trình khởi động.
@@ -48,20 +52,20 @@
     - Ví dụ: cdrom, cpu...
 - **/etc:**
 
-![thumucetc](../../thumucetc.png)
-  - Chứa files cấu hình yêu cầu bởi tất cả các programs.
-  - /etc kiểm soát cách hệ điều hành hoặc các ứng dụng hoạt động.
+  ![thumucetc](../../images/thumucetc.png)
+    - Chứa files cấu hình yêu cầu bởi tất cả các programs.
+    - /etc kiểm soát cách hệ điều hành hoặc các ứng dụng hoạt động.
     - Ví dụ, có một tệp trong /etc đó cho hệ điều hành biết nên khởi động vào chế độ văn bản hay chế độ đồ họa.
 - **/home:**
 
-  - Thư mục chính của người dùng. Mỗi khi người dùng mới được tạo, một thư mục có tên người dùng sẽ được tạo trong thư mục chính có chứa các thư mục khác như Desktop , Tải xuống , Tài liệu...
+    - Thư mục chính của người dùng. Mỗi khi người dùng mới được tạo, một thư mục có tên người dùng sẽ được tạo trong thư mục chính có chứa các thư mục khác như Desktop , Tải xuống , Tài liệu...
 
 - **/lib:**
 
-![thumuclib](../../thumuclib.png)
-  - Thư mục /lib là một thư mục tệp thư viện chứa tất cả các tệp thư viện hữu ích được sử dụng bởi hệ thống. Nói một cách đơn giản, đây là những tệp hữu ích được sử dụng bởi một ứng dụng hoặc một lệnh hoặc một quy trình để thực hiện đúng nghiệm vụ của nó. Các lệnh trong  tệp thư viện động được đặt ngay trong thư mục /bin hoặc /sbin.
-  - /lib Chứa các tệp thư viện hỗ trợ các tệp nhị phân nằm dưới /bin và /sbin.
-  - /lib chứa thư viện dùng chung cần thiết để khởi động hệ thống và chạy các lệnh trong hệ thống tệp gốc.
+  ![thumuclib](../../images/thumuclib.png)
+    - Thư mục /lib là một thư mục tệp thư viện chứa tất cả các tệp thư viện hữu ích được sử dụng bởi hệ thống. Nói một cách đơn giản, đây là những tệp hữu ích được sử dụng bởi một ứng dụng hoặc một lệnh hoặc một quy trình để thực hiện đúng nghiệm vụ của nó. Các lệnh trong  tệp thư viện động được đặt ngay trong thư mục /bin hoặc /sbin.
+    - /lib Chứa các tệp thư viện hỗ trợ các tệp nhị phân nằm dưới /bin và /sbin.
+    - /lib chứa thư viện dùng chung cần thiết để khởi động hệ thống và chạy các lệnh trong hệ thống tệp gốc.
 - **/media:**
   - Thư mục /media chứa các thư mục con nơi các thiết bị phương tiện di động được lắp vào máy tính được gắn kết lại. 
     - Ví dụ: khi ta đưa đĩa CD vào hệ thống Linux, một thư mục sẽ tự động được tạo bên trong thư mục /media. ta có thể truy cập nội dung của đĩa CD trong thư mục này.
@@ -78,7 +82,7 @@
   - Đây là một virtual filesystem với thông tin bằng văn bản về tài nguyên của hệ thống.
     - Ví dụ: /proc/cpuinfo , ...
     
-![thumucproc](../../thumucproc.png)
+![thumucproc](../../images/thumucproc.png)
 
 - **/root:**
   - Thư mục /root là thư mục chính của người dùng root. 
@@ -87,7 +91,7 @@
   - Thư mục /sbin tương tự như thư mục /bin.
   - Nó chứa các tệp nhị phân thiết yếu thường được chạy bởi người dùng root để quản trị hệ thống.
 
-![thumucsbin](../../thumucsbin.png)
+![thumucsbin](../../images/thumucsbin.png)
 
 - **/srv:**
 
@@ -114,7 +118,7 @@
  
     * Ví dụ:
 
-    ![thumucuser](../../thumucusr.png)
+    ![thumucuser](../../images/thumucusr.png)
 
      - Thư mục /usr được gọi là folder của người dùng. Ta sẽ tìm thấy các chương trình nhị phân và  chương trình thực thi liên quan đến người dùng trong thư mục /usr/bin.
         
@@ -126,7 +130,7 @@
 
 - **/var:**
 
-    ![thumucvar](../../thumucvar.png)
+    ![thumucvar](../../images/thumucvar.png)
 
     -  /var. Cụ thể /var/log là thư mục chứa các bản ghi được tạo bởi hệ điều hành và các ứng dụng khác.
     - Thư mục này chứa các tệp log , lock , spool , mail và temp.
