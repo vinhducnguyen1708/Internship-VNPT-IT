@@ -26,7 +26,7 @@
 * `systemctl`: dùng để quản lý trạng (start, enable, stop, status) của các dịch vụ hệ thống.
 * `journald`: dùng để quản lý nhật ký hoạt động của hệ thống(ghi log)
 * `logind`: dùng để quản lý và theo dõi việc đăng nhập/xuất của người dùng.
-* `netword`: dùng để quản lý các kết nối mạng thông qua cấu hình mạng.
+* `networkd`: dùng để quản lý các kết nối mạng thông qua cấu hình mạng.
 * `timedated`: dùng để quả lý thời gian hệ thống hoặc thời gian mạng
 * `udev` : dùng để quản lý các thiết bị.
  
