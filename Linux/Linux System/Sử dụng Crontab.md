@@ -39,5 +39,42 @@
 
 * Cấu trúc của crontab:
 
-![crontab](../../images/crontab1.png)
+![crontab](../../images/crontab4.png)
+
+<a name = '3'></a>
+
+## 3. LAB ví dụ:
+
+*Ta sẽ thực hiện một tiến trình cron: Mỗi ngày vào lúc 10g25p sẽ khởi động lại máy*
+
+* Dùng câu lệnh `crontab -e` để thiết lập cronjob
+    
+    ![crontabe](../../images/crontab3.png)
+
+    - vì lệch múi giờ nên phải kiểm tra ở câu lệnh `date`
+
+* Kiểm tra xem crontab đã được tạo chưa `crontab -l`
+    
+    ![crontabl](../../images/crontab1.png)
+
+* Kết quả :
+
+    ![crontabresult](../../images/crontab2.png)
+
+* Xóa crontab dùng câu lệnh `crontab -r`:
+
+    ![crontabr](../../images/crontab5.png)
+
+---
+<a name = 'tk'></a>
+
+## Tài liệu tham khảo
+
+[1] https://www.gocit.vn/bai-viet/crontab-linux/
+
+[2] https://vinahost.vn/crontab-linux-la-gi
+
+[3] https://hocvps.com/tong-quat-ve-crontab/
+
+[4] https://vi.digitalentertainmentnews.com/how-schedule-tasks-linux-an-introduction-crontab-files-940889
 
