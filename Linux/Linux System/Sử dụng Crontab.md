@@ -13,7 +13,11 @@
 ## 1. Mục đích để sử dụng Crontab
 * Tính năng của Cron trong Linux là một chế độ sắp xếp tự động các chương trình, ứng dụng và kích hoạt chúng tại một thời điểm nhất định trong hệ thống( tương tự với Task Scheduler của Windows).
 
-* Dính năng này rất phù hợp trong quá trình tự động sao lưu dữ liệu, bảo dưỡng hệ thống,...
+* Dính năng này rất phù hợp trong quá trình tự động 
+     - Sao lưu dữ liệu 
+     - Bảo dưỡng hệ thống
+     - Gửi email thống kê cho khách hàng mỗi tuần
+     - Xóa những file cache có dung lượng quá lớn hàng tháng
 
 
 <a name = '2'></a>
@@ -40,6 +44,7 @@
 * Cấu trúc của crontab:
 
 ![crontab](../../images/crontab4.png)
+<<<<<<< HEAD
 
 <a name = '3'></a>
 
@@ -77,4 +82,6 @@
 [3] https://hocvps.com/tong-quat-ve-crontab/
 
 [4] https://vi.digitalentertainmentnews.com/how-schedule-tasks-linux-an-introduction-crontab-files-940889
+=======
+>>>>>>> bcebf604cd4ecaa589aa992a7ef099a6287ee991
 
