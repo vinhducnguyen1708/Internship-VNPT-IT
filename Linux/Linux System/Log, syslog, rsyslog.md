@@ -115,24 +115,24 @@
 
 ## 3. Rsyslog 
 
-* Rsyslog là gì?
+* 3.1 Rsyslog là gì?
      * Rsyslog là một sự phát triển của syslog, cung cấp các khả năng như các mô đun có thể cấu hình, được liên kết với nhiều mục tiêu khác nhau (ví dụ chuyển tiếp nhật ký Apache đến một máy chủ từ xa).
     * Rsyslog sử dụng port 10514 cho TCP, đảm bảo rằng không có gói tin nào bị mất trên đường đi.
     * Bạn có thể sử dụng giao thức TLS/SSL trên TCP để mã hóa các gói Syslog của bạn, đảm bảo rằng không có cuộc tấn công trung gian nào có thể được thực hiện để theo dõi log của bạn.
 
-* Rsyslog làm gì?:
+* 3.2 Rsyslog làm gì?:
     
     * rsyslog có thể thu thập các bản ghi từ các thiết bị khác như một máy chủ
     * rsyslog có thể thu thập các bản ghi từ các thiết bị khác
 
-* Điều cần nhớ:
+* 3.3 Điều cần nhớ:
 
     * Facility level: các tiến trình cần ghi log.
     * Priority level: loại thông điệp cần thu thập dựa trên mức cảnh báo đưa ra.
     (ở phần syslog)
     * Destination: nơi cần gửi các bản ghi log đến.
   
-* Cấu hình
+* 3.4 Cấu hình
     
     Cài đặt rsyslog: 
 
@@ -161,7 +161,7 @@
 
     Giải thích: Tất cả các log gồm mọi Facility và Priority sẽ được chuyển đến máy chủ có địa chỉ ip 192.168.69.111 bằng TCP qua port 10514
 
-* LAB:
+* 3.5 LAB:
  
      *Ví dụ ta thực hiện ghi hết các log về Quá trình đăng nhập hoặc xác thực hệ thống với tất cả Priority tại file mới /var/log/auth.log, ta sửa file /etc/rsyslog.conf thực hiện lệnh:*
  
@@ -178,10 +178,10 @@
 * Rotating log file:
 
 
-*Để phòng ngừa bản ghi log lấp đầy hệ thống, ta cần có cơ chế rotate*
+   *Để phòng ngừa bản ghi log lấp đầy hệ thống, ta cần có cơ chế rotate*
 
-* Cơ chế này hoạt động khi đến một ngưỡng bất kì, tập log sẽ bị lấp đầy và tập log cũ sẽ đóng và tập log mới sẽ được mở.
-* Tính năng Rotatelog được thực hiện định kỳ thông qua cron
+   * Cơ chế này hoạt động khi đến một ngưỡng bất kì, tập log sẽ bị lấp đầy và tập log cũ sẽ đóng và tập log mới sẽ được mở.
+   * Tính năng Rotatelog được thực hiện định kỳ thông qua cron
 
 
 
