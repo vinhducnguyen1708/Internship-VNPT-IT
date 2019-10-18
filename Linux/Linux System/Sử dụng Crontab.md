@@ -82,6 +82,4 @@
 [3] https://hocvps.com/tong-quat-ve-crontab/
 
 [4] https://vi.digitalentertainmentnews.com/how-schedule-tasks-linux-an-introduction-crontab-files-940889
-=======
->>>>>>> bcebf604cd4ecaa589aa992a7ef099a6287ee991
 
