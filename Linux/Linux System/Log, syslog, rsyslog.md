@@ -177,18 +177,14 @@
 
 * Rotating log file:
 
-
-<<<<<<< HEAD
     *Để phòng ngừa bản ghi log lấp đầy hệ thống, ta cần có cơ chế rotate*
 
     * Cơ chế này hoạt động khi đến một ngưỡng bất kì, tập log sẽ bị lấp đầy và tập log cũ sẽ đóng và tập log mới sẽ được mở.
     * Tính năng Rotatelog được thực hiện định kỳ thông qua cron
-=======
    *Để phòng ngừa bản ghi log lấp đầy hệ thống, ta cần có cơ chế rotate*
 
    * Cơ chế này hoạt động khi đến một ngưỡng bất kì, tập log sẽ bị lấp đầy và tập log cũ sẽ đóng và tập log mới sẽ được mở.
    * Tính năng Rotatelog được thực hiện định kỳ thông qua cron
->>>>>>> d46676b75ff9716ebda420eff33c8a753372f22e
 
 
     *Ví dụ Chúng ta có thể quy định tiến trình rotate dựa vào dung lượng file*
