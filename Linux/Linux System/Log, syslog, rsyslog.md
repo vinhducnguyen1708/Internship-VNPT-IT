@@ -175,16 +175,44 @@
     ![rsyslogconf](../../images/rsyslogconf2.png)
 
 
-* Rotating log file:
+## 4. Rotating log file:
 
-    *Để phòng ngừa bản ghi log lấp đầy hệ thống, ta cần có cơ chế rotate*
+* Để phòng ngừa bản ghi log lấp đầy hệ thống, ta cần có cơ chế rotate*
 
-    * Cơ chế này hoạt động khi đến một ngưỡng bất kì, tập log sẽ bị lấp đầy và tập log cũ sẽ đóng và tập log mới sẽ được mở.
-    * Tính năng Rotatelog được thực hiện định kỳ thông qua cron
+* Cơ chế này hoạt động khi đến một ngưỡng bất kì, tập log sẽ bị lấp đầy và tập log cũ sẽ đóng và tập log mới sẽ được mở.
+* Tính năng Rotatelog được thực hiện định kỳ thông qua cron
+   
    *Để phòng ngừa bản ghi log lấp đầy hệ thống, ta cần có cơ chế rotate*
 
    * Cơ chế này hoạt động khi đến một ngưỡng bất kì, tập log sẽ bị lấp đầy và tập log cũ sẽ đóng và tập log mới sẽ được mở.
    * Tính năng Rotatelog được thực hiện định kỳ thông qua cron
+
+*Các thông số thường gặp trong các tệp tin chính của logrotate*
+
+
+|Thông số| Chức năng|
+|--------|---------------|
+|daily|Mỗi ngày|
+|weekly|Mỗi tuần|
+|monthly|Mỗi tháng|
+|yearly|Mỗi năm|
+|missingok|Nếu file log bị mất hoặc không tồn tại *.log thì logrotate sẽ di chuyển tới phần cấu hình log của file log khác mà không phải xuất ra báo lỗi|
+|nomissingok|ngược lại so với cấu hình missigok|
+|notifempty|Không rotate log nếu file này trống|
+|rotate|số lượng file log cũ đã được giữ lại sau khi rotate|
+|compress|Logrotate sẽ nén tất cả các file log lại sau khi đã được rotate mặc định bằng gzip|
+|compresscmd|Khi sử dụng chương trình nén như bzip2, xz hoặc zip|
+|delaycompress|Được sử dụng khi không muốn file log cũ phải nén ngay sau khi vừa được rotate|
+|nocompress|Không sử dụng tính năng nén đối với file log cũ|
+|create|Phân quyền cho file log mới sau khi rotate|
+|copytruncate|File log cũ được sao chép vào một tệp lưu trữ, và sau đó nó xóa các dòng log cũ|
+|postrotate [command] endscript	|Để chạy lệnh sau khi quá trình rotate kết thúc, chúng ta đặt lệnh thực thi nằm giữa postrotate và endscript|
+|prerotate [command] endscript|Để chạy lệnh trước khi quá trình rotate bắt đầu, chúng ta đặt lệnh thực thi nằm giữa prerotate và endscript
+|
+
+
+
+* Cấu hình mặc định của logrotate được lưu ở file ` /etc/logrotate.conf ` Có chứa các thông tin thiết lập toàn bộ file log mà Logrotate quản lý, bao gồm chu kì lặp, dung lượng file log, nén file,...
 
 
     *Ví dụ Chúng ta có thể quy định tiến trình rotate dựa vào dung lượng file*
@@ -198,3 +226,31 @@
     * size 150M: Logrotate chỉ chạy nếu kích thước tệp bằng (hoặc lớn hơn) kích thước này.
     * create: Rotate tệp gốc và tạo tệp mới với sự cho phép người dùng và nhóm được chỉ định.
     * rotate: Giới hạn số vòng quay của fle log. Vì vậy, điều này sẽ chỉ giữ lại 1 file log được rotate gần nhất.
+
+
+## 5. Làm việc với Journald 
+
+* Là một daemon (chạy background trên hệ thống), một bộ phận của systemd, là một system service thực hiện việc thu thập và lưu trữ dữ liệu logging.
+
+* Mặc định log sẽ được chứa trong /run/log/journal/, bởi dữ liệu trong /run sẽ bị mất sau khi reboot, log cũng sẽ bị mất theo (có thể config để thay đổi điều này).
+
+* Journalctl là một công cụ để query (truy vấn).
+
+* Câu lệnh:
+    * `journalctl -p err`  Câu lệnh này sẽ chỉ show lỗi (errors)
+
+    * câu lệnh nào cho phép xem  journald messages từ lần reboot trước đó trên hệ thống ở journald đóng dấu
+    `journalctl -b -number` (number là các lần boot trở về trước)
+
+    * Câu lệnh nào cho phép xem journald messages  đã được viết ở PID từ 9g sáng - 3 giờ chiều.
+    `journalctl _PID=1 --since 9:00:00 --until 15:00:00`
+
+    * Câu lệnh nào cho phép xem journald được tạo ra trên thời gian thực
+    `journalctl -f`
+
+    * `journalctl _SYSTEMD_
+    UNIT=sshd.service`
+    Câu lệnh để xem chi tiết log của service
+
+* Vì theo mặc định, Journal được lưu trữ ở file /run/log/journal. Nên sau khi reboot journal sẽ bị mất. Để tạo một journal được đóng dấu khi hệ thống khởi động lại, bạn phải chắc chắn thư mục /var/log/journal tồn tại
+    
