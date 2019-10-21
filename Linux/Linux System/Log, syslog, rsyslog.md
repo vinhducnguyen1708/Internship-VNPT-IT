@@ -178,12 +178,20 @@
 * Rotating log file:
 
 
-*Để phòng ngừa bản ghi log lấp đầy hệ thống, ta cần có cơ chế rotate*
+    *Để phòng ngừa bản ghi log lấp đầy hệ thống, ta cần có cơ chế rotate*
 
-* Cơ chế này hoạt động khi đến một ngưỡng bất kì, tập log sẽ bị lấp đầy và tập log cũ sẽ đóng và tập log mới sẽ được mở.
-* Tính năng Rotatelog được thực hiện định kỳ thông qua cron
-
-
+    * Cơ chế này hoạt động khi đến một ngưỡng bất kì, tập log sẽ bị lấp đầy và tập log cũ sẽ đóng và tập log mới sẽ được mở.
+    * Tính năng Rotatelog được thực hiện định kỳ thông qua cron
 
 
+    *Ví dụ Chúng ta có thể quy định tiến trình rotate dựa vào dung lượng file*
 
+    * `Với /var/log/wtmp` khi size 150M sẽ tạo tệp mới
+    
+    ![logrotate](../../images/logrotate.png)
+
+    *Ví dụ trên các tùy chọn có ý nghĩa như sau:*
+
+    * size 150M: Logrotate chỉ chạy nếu kích thước tệp bằng (hoặc lớn hơn) kích thước này.
+    * create: Rotate tệp gốc và tạo tệp mới với sự cho phép người dùng và nhóm được chỉ định.
+    * rotate: Giới hạn số vòng quay của fle log. Vì vậy, điều này sẽ chỉ giữ lại 1 file log được rotate gần nhất.
