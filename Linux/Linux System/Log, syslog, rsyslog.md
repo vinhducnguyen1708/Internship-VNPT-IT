@@ -239,8 +239,14 @@
 * Câu lệnh:
     * `journalctl -p err`  Câu lệnh này sẽ chỉ show lỗi (errors)
 
+
+        ![images](../../images/journalerror.png)
+
     * câu lệnh nào cho phép xem  journald messages từ lần reboot trước đó trên hệ thống ở journald đóng dấu
     `journalctl -b -number` (number là các lần boot trở về trước)
+
+
+         ![images](../../images/journalb.png)
 
     * Câu lệnh nào cho phép xem journald messages  đã được viết ở PID từ 9g sáng - 3 giờ chiều.
     `journalctl _PID=1 --since 9:00:00 --until 15:00:00`
@@ -248,9 +254,41 @@
     * Câu lệnh nào cho phép xem journald được tạo ra trên thời gian thực
     `journalctl -f`
 
+        ![images](../../images/journalf.png)
+
     * `journalctl _SYSTEMD_
     UNIT=sshd.service`
     Câu lệnh để xem chi tiết log của service
 
 * Vì theo mặc định, Journal được lưu trữ ở file /run/log/journal. Nên sau khi reboot journal sẽ bị mất. Để tạo một journal được đóng dấu khi hệ thống khởi động lại, bạn phải chắc chắn thư mục /var/log/journal tồn tại
+
+    * Tạo journal dài hạn:
+        
+        - Tạo thư mục để lưu `mkdir /var/log/journal`
+        - Trước khi journal được viết vào thư mục này thì phải phân quyền ` chown root:systemd-journal /var/log/journal` và    `chmod 2755 /var/log/journal`
+        - Giờ có thể reboot hệ thống hoặc dùng lệnh `killall -USR1 systemd-journald`
+        - Kiểm tra dùng lệnh `journalctl -b`.
+
+        ![journal](../../images/journal.png)
     
+
+---
+Summary Quiz:
+
+Câu 1: File nào dùng để cấu hình rsyslog: `/etc/rsyslog.conf`
+
+Câu 2: File log nào liên quan đến xác thực: `/var/log/auth.log` 
+
+Câu 3: Nếu không cấu hình thì mặc định sau một tuần file log sẽ bị rotate và file rotated sẽ tồn tại trong 4 tuần.
+
+Câu 4: Câu lệnh nào cho phép bạn ghi lại từ Command line đến user facility và notice priority: `logger -p user.notice "User Notice Log"
+
+Câu 5: Câu lệnh đưa tất cả các log có priority là info vào thư mục /var/log/message.info : `*.=info /var/log/messages.info`
+
+Câu 6: File cấu hình nào phép bạn cấu hình Journal được vượt quá size mặc định :`/etc/systemd/journald.conf`
+
+Câu 7: Câu lệnh nào cho phép xem journal được tạo ra ở thời gian thực: `journalctl f`
+
+Câu 8: Câu lệnh nào cho phép xem journal đã được viết ở PID=1 từ 9g sáng - 3g chiều: `journalctl_PID=1 --since 9:00:00 --until 15:00:00`
+
+Câu 9: Câu lệnh nào cho phép xem journal từ lần reboot trước đó khi đã được đóng dấu: `journalctl -b -number` (number là số lần reboot)
