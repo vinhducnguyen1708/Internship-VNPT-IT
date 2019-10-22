@@ -3,7 +3,8 @@
 * [1. Log để làm gì?](#1)
 * [2. Syslog là gì?](#2)
 * [3. Rsyslog là gì?](#3) 
-* [4. Mô tả](#4)
+* [4. Logrotation](#4)
+* [5. Journal](#5)
 * [Tham khảo](#tk)
 ---
 
