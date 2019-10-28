@@ -19,13 +19,13 @@
     - Là file văn bản chứa thông tin về các tài khoản user trên máy. Mọi user đều có thể đọc tập tin này nhưng chỉ có root mới có quyền thay đổi.
     - Để xem nội dung của file ta dùng lệnh:
         `#cat /etc/passwd`
-    ![images](usergroup.png)
+    ![images](../../images/usergroup.png)
 
 * File /etc/shadown
     - Là tập tin văn bản chứa thông tin về mật khẩu của các tài khoản user trên máy.
     - Chỉ có root mới có quyền đọc tập tin này. User root có quyền reset mật khẩu của bất kỳ user nào trên máy.
 
-         ![images](usergroup2.png)
+         ![images](../../images/usergroup2.png)
 
 ## Tạo User
 
@@ -97,7 +97,7 @@ người dùng*
 
 - File /etc/group: Là file chứa thông tin về group user trên máy. Mọi user đều có thể đọc nhưng chỉ có root mới có quyền thay đổi.
 
-    ![images](usergroup3.png)
+    ![images](../../images/usergroup3.png)
 
 - Lệnh groupadd:
         
