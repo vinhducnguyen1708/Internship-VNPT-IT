@@ -135,7 +135,7 @@ Gõ lệnh để kiểm tra : `iptables -L`
 
  `iptables -I INPUT -p tcp -m tcp --dport 22 -j ACCEPT`
 
- ![images](iptable2.png)
+ ![images](../../images/iptable2.png)
 
  Ở đây đã hiện thêm các tham số mới sau khi thêm câu lệnh
  - -m conntrack: Áp dụng cho các kết nối thuộc module tên là “Connection Tracking“. Module này sẽ có 4 kiểu kết nối là NEW, ESTABLISHED, RELATED và INVALID. Cụ thể là ở quy tắc này chúng ta sẽ sử dụng kiểu RELATED và ESTABLISHED để lọc các kết nối đang truy cập.
