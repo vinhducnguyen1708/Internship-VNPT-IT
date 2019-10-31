@@ -146,3 +146,11 @@ Gõ lệnh để kiểm tra : `iptables -L`
 Để xóa lệnh toàn bộ các quy tắc chứa hành động ACCEPT thì có thể sử dụng lệnh sau:
 
 `iptables -D INPUT -j ACCEPT`
+
+Để xóa một trong số các quy tắc ở dòng tùy chọn:
+
+`iptables -D INPUT [number]`
+
+
+
+
