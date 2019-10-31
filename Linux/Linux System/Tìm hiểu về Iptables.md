@@ -160,6 +160,10 @@ Gõ lệnh để kiểm tra : `iptables -L`
 
 ` iptables -A INPUT -p tcp --dport 80 -m limit --limit 10/minute --limit-burst 50 -j ACCEPT`
 
+*Kiểm tra nếu lượng kết nối trong 60 giây, nếu lượng kết nối lớn hơn 5 sẽ DROP*
+
+`iptables -I INPUT -p tcp --dport 80 -s 192.168.10.200 -m recent --update --seconds 60 --hitcount 5 -j DROP`
+
 *SMTP là Giao thức truyền tải thư điện tử ,nếu server của bạn không phải là web mail thì lên chặn lại*
 
 `iptables -A OUTPUT -p tcp --dport 25 -j DROP`
