@@ -13,7 +13,7 @@
 * Iptables cho phép người quản trị Linux cấu hình cho phép chặn luồng dữ liệu đi qua mạng. Iptables có thể đọc, thay đổi, chuyển hướng hoặc hủy các gói tin đi vào và đi ra dựa trên các tables, chains, rules. Mỗi table có nhiều chain chứa các rules khác nhau, quyết định cách thức xử lý gói tin (dựa trên giao thức, địa chỉ nguồn, đích... )
 ## Cơ chế trong iptables
 
-*Cơ chế lọc gói tin của iptables được xây dựng trên 3 thành phần cơ bản đó là table, chanin, target. Mỗi bảng găns thêm các chain để xủ lý cho mỗi giai đoan khác nhau và mỗi giao đoạn có thể tạo ra các rules khác nhau.*
+*Cơ chế lọc gói tin của iptables được xây dựng trên 3 thành phần cơ bản đó là table, chanin, target. Mỗi bảng gắn thêm các chain để xử lý cho mỗi giai đoạn khác nhau và mỗi giai đoạn có thể tạo ra các rules khác nhau.*
 
 ### Tables
 
@@ -143,6 +143,44 @@ Gõ lệnh để kiểm tra : `iptables -L`
 - –ctstate RELATED,ESTABLISHED: Khai báo loại kết nối được áp dụng của cái module Connection Tracking mà mình đã nói ở trên.
 
 
-Để xóa lệnh toàn bộ các quy tắc chứa hành động ACCEPT thì có thể sử dụng lệnh sau:
+*Để xóa lệnh toàn bộ các quy tắc chứa hành động ACCEPT thì có thể sử dụng lệnh sau:*
 
 `iptables -D INPUT -j ACCEPT`
+
+*Để xóa một trong số các quy tắc ở dòng tùy chọn:*
+
+`iptables -D INPUT [number]`
+
+*Để chặn địa chỉ 192.168.10.101 sử dụng ssh đến server:*
+
+`iptables -I INPUT -p tcp -s 192.168.10.101 --dport 22 -j REJECT`
+
+*Kiểm tra khi một IP tạo ra `50 kết nối` vào `cổng 80(http)` tới server thì bắt đầu hạn chế IP đó chỉ cho `10 kết nối` trong  `1 phút`* 
+
+` iptables -A INPUT -p tcp --dport 80 -m limit --limit 10/minute --limit-burst 50 -j ACCEPT`
+
+*SMTP là Giao thức truyền tải thư điện tử ,nếu server của bạn không phải là web mail thì lên chặn lại*
+
+`iptables -A OUTPUT -p tcp --dport 25 -j DROP`
+
+
+*Chặn ping*
+
+`iptables -A INPUT -p icmp --icmp-type echo-request -j REJECT`
+
+
+![images](../../images/iptable123.png)
+
+### Lưu iptables
+
+* `service iptables save`
+  
+  `service iptables restart`
+
+hoặc
+
+* `iptables-save | sudo tee /etc/sysconfig/iptables`
+
+ngoài ra còn có câu lệnh để lưu giữ vào cấu hình hệ thống:
+
+* `sudo /sbin/iptables-save`
