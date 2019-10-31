@@ -147,7 +147,7 @@ Gõ lệnh để kiểm tra : `iptables -L`
 
 `iptables -D INPUT -j ACCEPT`
 
-<<<<<<< HEAD
+
 *Để xóa một trong số các quy tắc ở dòng tùy chọn:*
 
 `iptables -D INPUT [number]`
@@ -185,12 +185,8 @@ hoặc
 ngoài ra còn có câu lệnh để lưu giữ vào cấu hình hệ thống:
 
 * `sudo /sbin/iptables-save`
-=======
-Để xóa một trong số các quy tắc ở dòng tùy chọn:
-
-`iptables -D INPUT [number]`
 
 
 
 
->>>>>>> 2509f3c2bf43282379e5003fcd3c5517e46980aa
+
