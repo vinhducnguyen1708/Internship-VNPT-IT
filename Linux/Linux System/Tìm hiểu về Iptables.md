@@ -13,7 +13,7 @@
 * Iptables cho phép người quản trị Linux cấu hình cho phép chặn luồng dữ liệu đi qua mạng. Iptables có thể đọc, thay đổi, chuyển hướng hoặc hủy các gói tin đi vào và đi ra dựa trên các tables, chains, rules. Mỗi table có nhiều chain chứa các rules khác nhau, quyết định cách thức xử lý gói tin (dựa trên giao thức, địa chỉ nguồn, đích... )
 ## Cơ chế trong iptables
 
-*Cơ chế lọc gói tin của iptables được xây dựng trên 3 thành phần cơ bản đó là table, chanin, target. Mỗi bảng găns thêm các chain để xủ lý cho mỗi giai đoan khác nhau và mỗi giao đoạn có thể tạo ra các rules khác nhau.*
+*Cơ chế lọc gói tin của iptables được xây dựng trên 3 thành phần cơ bản đó là table, chanin, target. Mỗi bảng gắn thêm các chain để xử lý cho mỗi giai đoạn khác nhau và mỗi giai đoạn có thể tạo ra các rules khác nhau.*
 
 ### Tables
 
