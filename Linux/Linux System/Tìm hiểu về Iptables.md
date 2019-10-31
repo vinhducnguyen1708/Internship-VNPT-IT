@@ -17,14 +17,16 @@
 
 ### Tables
 
--  Mangle: chịu trách nhiệm thay đổi các bits chất lượng dịch vụ trong TCP header như TOS (type of service), TTL (time to live), và MARK.
+Các loại bảng trong iptables
 
-- Filter: chịu trách nhiệm lọc gói dữ liệu. Nó gồm có 3 quy tắc nhỏ (chain) để giúp bạn thiết lập các nguyên tắc lọc gói:
+-  Mangle table: chịu trách nhiệm thay đổi các bits chất lượng dịch vụ trong TCP header như TOS (type of service), TTL (time to live), và MARK.
+
+- Filter table: chịu trách nhiệm lọc gói dữ liệu. Nó gồm có 3 quy tắc nhỏ (chain) để giúp bạn thiết lập các nguyên tắc lọc gói:
 
     - Forward chain : lọc gói khi đi đến đến các server khác.
     - Input chain : lọc gói khi đi vào trong server.
     - Output chain: lọc gói khi ra khỏi server.
-- NAT: gồm có 2 loại:
+- NAT table: gồm có 2 loại:
 
     - Pre-routing chain: thay đổi địa chỉ đến của gói dữ liệu khi cần thiết.
     - Post-routing chain: thay đổi địa chỉ nguồn của gói dữ liệu khi cần thiết.
@@ -192,5 +194,14 @@ ngoài ra còn có câu lệnh để lưu giữ vào cấu hình hệ thống:
 
 
 
+---
+## Tham Khảo
 
+[1] https://www.cyberciti.biz/tips/linux-iptables-examples.html
+
+[2] http://www.networkinghowtos.com/howto/change-the-iptables-log-file/
+
+[3] https://support.maxserver.com/319787--B%E1%BA%A3o-v%E1%BB%87-vps-b%E1%BA%B1ng-IPTABLES-tr%C3%AAn-linux
+
+[4] https://viblo.asia/p/network-tim-hieu-ve-iptables-n7prv348RKod
 
