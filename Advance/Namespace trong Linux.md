@@ -125,7 +125,7 @@ check: `ip link` Kết nối thông 2 đầu
     
     *bật interface*
 
-    ` ip netns exec VinhDN1 ip link set eth1-VinhDN1 up
+    ` ip netns exec VinhDN1 ip link set eth1-VinhDN1 up`
 
     - namespace VinhDN2:
 
@@ -133,7 +133,7 @@ check: `ip link` Kết nối thông 2 đầu
     
     *bật interface*
 
-    ` ip netns exec VinhDN2 ip link set eth2-VinhDN2 up
+    ` ip netns exec VinhDN2 ip link set eth2-VinhDN2 up`
 
 * Gán interface vào Switch ảo 
 
