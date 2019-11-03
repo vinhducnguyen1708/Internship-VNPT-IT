@@ -17,14 +17,16 @@
 
 ### Tables
 
--  Mangle: chịu trách nhiệm thay đổi các bits chất lượng dịch vụ trong TCP header như TOS (type of service), TTL (time to live), và MARK.
+Các loại bảng trong iptables
 
-- Filter: chịu trách nhiệm lọc gói dữ liệu. Nó gồm có 3 quy tắc nhỏ (chain) để giúp bạn thiết lập các nguyên tắc lọc gói:
+-  Mangle table: chịu trách nhiệm thay đổi các bits chất lượng dịch vụ trong TCP header như TOS (type of service), TTL (time to live), và MARK.
+
+- Filter table: chịu trách nhiệm lọc gói dữ liệu. Nó gồm có 3 quy tắc nhỏ (chain) để giúp bạn thiết lập các nguyên tắc lọc gói:
 
     - Forward chain : lọc gói khi đi đến đến các server khác.
     - Input chain : lọc gói khi đi vào trong server.
     - Output chain: lọc gói khi ra khỏi server.
-- NAT: gồm có 2 loại:
+- NAT table: gồm có 2 loại:
 
     - Pre-routing chain: thay đổi địa chỉ đến của gói dữ liệu khi cần thiết.
     - Post-routing chain: thay đổi địa chỉ nguồn của gói dữ liệu khi cần thiết.
@@ -147,7 +149,7 @@ Gõ lệnh để kiểm tra : `iptables -L`
 
 `iptables -D INPUT -j ACCEPT`
 
-<<<<<<< HEAD
+
 *Để xóa một trong số các quy tắc ở dòng tùy chọn:*
 
 `iptables -D INPUT [number]`
@@ -159,6 +161,10 @@ Gõ lệnh để kiểm tra : `iptables -L`
 *Kiểm tra khi một IP tạo ra `50 kết nối` vào `cổng 80(http)` tới server thì bắt đầu hạn chế IP đó chỉ cho `10 kết nối` trong  `1 phút`* 
 
 ` iptables -A INPUT -p tcp --dport 80 -m limit --limit 10/minute --limit-burst 50 -j ACCEPT`
+
+*Kiểm tra nếu lượng kết nối trong 60 giây, nếu lượng kết nối lớn hơn 5 sẽ DROP*
+
+`iptables -I INPUT -p tcp --dport 80 -s 192.168.10.200 -m recent --update --seconds 60 --hitcount 5 -j DROP`
 
 *SMTP là Giao thức truyền tải thư điện tử ,nếu server của bạn không phải là web mail thì lên chặn lại*
 
@@ -185,12 +191,17 @@ hoặc
 ngoài ra còn có câu lệnh để lưu giữ vào cấu hình hệ thống:
 
 * `sudo /sbin/iptables-save`
-=======
-Để xóa một trong số các quy tắc ở dòng tùy chọn:
-
-`iptables -D INPUT [number]`
 
 
 
+---
+## Tham Khảo
 
->>>>>>> 2509f3c2bf43282379e5003fcd3c5517e46980aa
+[1] https://www.cyberciti.biz/tips/linux-iptables-examples.html
+
+[2] http://www.networkinghowtos.com/howto/change-the-iptables-log-file/
+
+[3] https://support.maxserver.com/319787--B%E1%BA%A3o-v%E1%BB%87-vps-b%E1%BA%B1ng-IPTABLES-tr%C3%AAn-linux
+
+[4] https://viblo.asia/p/network-tim-hieu-ve-iptables-n7prv348RKod
+
