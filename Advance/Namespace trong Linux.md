@@ -12,7 +12,7 @@
 
 * Khi khởi động Linux, mặc định sẽ có một namespace trong hệ thống. và tiến trình được tạo sẽ kế thừa namespace này (rootnamespace). Tức là tất cả các tiến trình thừa kế network namespace sẽ được init sử dụng (PID 1).
 
-    ![images](../../images/namespace1.png)
+    ![images](../images/namespace1.png)
 
 ### 1.2.1 List namespaces
 
@@ -28,15 +28,15 @@
 
     `ip netns add <name>`
 
-    ![images](../../images/namespace2.png)
+    ![images](../images/namespace2.png)
 
-    ![images](../../images/namespace3.png)
+    ![images](../images/namespace3.png)
 
 * Mỗi khi thêm vào một namespace, một file mới được tạo trong thư mục /var/run/netns với tên giống như tên namespace. (không bao gồm file của root namespace).
 
     `ls -l /var/run/netns`
 
-    ![images](../../images/namespace4.png)
+    ![images](../images/namespace4.png)
 
 ### 1.2.3 Executing commands trong namespaces
 
@@ -48,13 +48,13 @@
 
 * Ví dụ: chạy lệnh ip a liệt kê địa chỉ các interface trong namespace VinhDN1, VDN2.
 
-    ![images](../../images/namespace5.png)
+    ![images](../images/namespace5.png)
 
 * Kết quả đầu ra sẽ khác so với khi chạy câu lệnh ip a ở chế độ mặc định (trong root namespace). Mỗi namespace sẽ có một môi trường mạng cô lập và có các interface và bảng định tuyến riêng.
 
 * Để liệt kê tất các các địa chỉ interface của các namespace sử dụng tùy chọn –a hoặc –all
 
-    ![images](../../images/namespace6.png) 
+    ![images](../images/namespace6.png) 
 * Xóa namespace
 
      `ip netns delete <namespace_name>`
@@ -91,7 +91,7 @@
 ### 3.1 Kết nối 2 namespace sử dụng openvswitch
 * Mô hình:
 
-![images](../../images/namespaceovs.png)
+![images](../images/namespaceovs.png)
 
  * Tạo OpenvSwitch
  
@@ -115,7 +115,7 @@ check:  `ovs-vsctl show`
 
 check: `ip link` Kết nối thông 2 đầu
 
-![namespace](../../images/namespace10.png)
+![namespace](../images/namespace10.png)
 
 * Gán các interface vào namespace ( bật interface)
 
@@ -153,7 +153,7 @@ check: `ip link` Kết nối thông 2 đầu
 
  `ovs-vsctl show` : 2 port đã được add
 
- ![images](../../images/namespace11.png)
+ ![images](../images/namespace11.png)
 
 * Gán địa chỉ ip cho port phía namespace
  
@@ -175,13 +175,13 @@ Namespace 2:
 
 `ip netns exec <namespace> ip a`
 
-![namespace](../../images/namespace12.png)
+![namespace](../images/namespace12.png)
 
 * Ping 2 namespace
 
 Lệnh: `ip netns exec <namespace> ping -c<n> <IP>`
 
-![images](../../images/namespace13.png)
+![images](../images/namespace13.png)
 
 
 ### 3.2  Kết nối trực tiếp thông qua port trên vswitch
@@ -198,7 +198,7 @@ Lệnh: `ip netns exec <namespace> ping -c<n> <IP>`
 
 *kiểm tra*
 
-![images](../../images/namespace14.png)
+![images](../images/namespace14.png)
 
 * Gán 2 port trên vào namespace tương ứng
 
@@ -218,7 +218,7 @@ Lệnh: `ip netns exec <namespace> ping -c<n> <IP>`
 
     - Thực hiện gán địa chỉ ip cho vport1 :172.0.0.1/24 , vport2: 172.0.0.2/24
 
-![images](../../images/namespace15.png)
+![images](../images/namespace15.png)
 
 ---
 http://man7.org/linux/man-pages/man4/veth.4.html
