@@ -12,7 +12,7 @@
 
 * Khi khởi động Linux, mặc định sẽ có một namespace trong hệ thống. và tiến trình được tạo sẽ kế thừa namespace này (rootnamespace). Tức là tất cả các tiến trình thừa kế network namespace sẽ được init sử dụng (PID 1).
 
-    ![images](namespace1.png)
+    ![images](../images/namespace1.png)
 
 ### 1.2.1 List namespaces
 
@@ -214,6 +214,7 @@ Lệnh: `ip netns exec <namespace> ping -c<n> <IP>`
     - Thực hiện gán địa chỉ ip cho vport1 :172.0.0.1/24 , vport2: 172.0.0.2/24
 
 ![images](../images/namespace15.png)
+<<<<<<< HEAD
 
 ### 3.3 Cấu hình DHCP namespace cấp ip cho network namespace
 **Mô hình**
@@ -308,6 +309,8 @@ Lệnh: `ip netns exec <namespace> ping -c<n> <IP>`
     - check: `ip netns exec VinhDN1 ip a`
 
     ![abc](../images/namespace17.png)
+=======
+>>>>>>> 2cb18b19c783a65d7222d87dc483620112427699
 
 ---
 http://man7.org/linux/man-pages/man4/veth.4.html
