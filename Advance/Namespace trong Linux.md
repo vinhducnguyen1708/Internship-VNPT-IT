@@ -28,15 +28,15 @@
 
     `ip netns add <name>`
 
-    ![images](namespace2.png)
+    ![images](../images/namespace2.png)
 
-    ![images](namespace3.png)
+    ![images](../images/namespace3.png)
 
 * Mỗi khi thêm vào một namespace, một file mới được tạo trong thư mục /var/run/netns với tên giống như tên namespace. (không bao gồm file của root namespace).
 
     `ls -l /var/run/netns`
 
-    ![images](namespace4.png)
+    ![images](../images/namespace4.png)
 
 ### 1.2.3 Executing commands trong namespaces
 
@@ -48,13 +48,13 @@
 
 * Ví dụ: chạy lệnh ip a liệt kê địa chỉ các interface trong namespace VinhDN1, VDN2.
 
-    ![images](namespace5.png)
+    ![images](../images/namespace5.png)
 
 * Kết quả đầu ra sẽ khác so với khi chạy câu lệnh ip a ở chế độ mặc định (trong root namespace). Mỗi namespace sẽ có một môi trường mạng cô lập và có các interface và bảng định tuyến riêng.
 
 * Để liệt kê tất các các địa chỉ interface của các namespace sử dụng tùy chọn –a hoặc –all
 
-    ![images](namespace6.png) 
+    ![images](../images/namespace6.png) 
 * Xóa namespace
 
      `ip netns delete <namespace_name>`
@@ -79,11 +79,6 @@
 *Bạn có thể tưởng tượng cặp này là một tunnel. Tất cả mọi thứ bạn sẽ gửi qua một đầu của tunnel, sẽ xuất hiện ở đầu kia*
 
 
-
-
-
-
-
 ## 
 
 ## 3. LAB
@@ -91,7 +86,7 @@
 ### 3.1 Kết nối 2 namespace sử dụng openvswitch
 * Mô hình:
 
-![images](namespaceovs.png)
+![images](../images/namespaceovs.png)
 
  * Tạo OpenvSwitch
  
@@ -115,7 +110,7 @@ check:  `ovs-vsctl show`
 
 check: `ip link` Kết nối thông 2 đầu
 
-![namespace](namespace10.png)
+![namespace](../images/namespace10.png)
 
 * Gán các interface vào namespace ( bật interface)
 
@@ -125,7 +120,7 @@ check: `ip link` Kết nối thông 2 đầu
     
     *bật interface*
 
-    ` ip netns exec VinhDN1 ip link set eth1-VinhDN1 up
+    ` ip netns exec VinhDN1 ip link set eth1-VinhDN1 up`
 
     - namespace VinhDN2:
 
@@ -133,7 +128,7 @@ check: `ip link` Kết nối thông 2 đầu
     
     *bật interface*
 
-    ` ip netns exec VinhDN2 ip link set eth2-VinhDN2 up
+    ` ip netns exec VinhDN2 ip link set eth2-VinhDN2 up`
 
 * Gán interface vào Switch ảo 
 
@@ -153,7 +148,7 @@ check: `ip link` Kết nối thông 2 đầu
 
  `ovs-vsctl show` : 2 port đã được add
 
- ![images](namespace11.png)
+ ![images](../images/namespace11.png)
 
 * Gán địa chỉ ip cho port phía namespace
  
@@ -175,13 +170,13 @@ Namespace 2:
 
 `ip netns exec <namespace> ip a`
 
-![namespace](namespace12.png)
+![namespace](../images/namespace12.png)
 
 * Ping 2 namespace
 
 Lệnh: `ip netns exec <namespace> ping -c<n> <IP>`
 
-![images](namespace13.png)
+![images](../images/namespace13.png)
 
 
 ### 3.2  Kết nối trực tiếp thông qua port trên vswitch
@@ -198,7 +193,7 @@ Lệnh: `ip netns exec <namespace> ping -c<n> <IP>`
 
 *kiểm tra*
 
-![images](namespace14.png)
+![images](../images/namespace14.png)
 
 * Gán 2 port trên vào namespace tương ứng
 
@@ -218,7 +213,101 @@ Lệnh: `ip netns exec <namespace> ping -c<n> <IP>`
 
     - Thực hiện gán địa chỉ ip cho vport1 :172.0.0.1/24 , vport2: 172.0.0.2/24
 
-![images](namespace15.png)
+![images](../images/namespace15.png)
+
+### 3.3 Cấu hình DHCP namespace cấp ip cho network namespace
+**Mô hình**
+
+![abc](namespaceovsdhcp.png)
+
+
+ **Cấu hình**
+
+* Phía 2 namespace: 
+    
+    - Tạo cặp veth 
+
+    `ip link add veth-VinhDN1 type veth peer name eth1-VinhDN1` 
+
+    `ip link add veth-VinhDN2 type veth peer name eth2-VinhDN2`
+
+    - Gán interface vào namespace
+
+    `ip link set eth0-ns1 netns ns1`
+    
+    `ip link set eth0-ns2 netns ns2`
+
+    - enable các inteface
+
+    `ip netns exec VinhDN1 ip link set lo up`
+    
+    `ip netns exec VinhDN1 ip link set eth1-VinhDN1 up`
+    
+    `ip netns exec VinhDN2 ip link set lo up`
+    
+    `ip netns exec VinhDN2 ip link set eth2-VinhDN2 up`
+
+    - Gán interface và thêm thông tin vào ovs
+
+    
+    `ovs-vsctl add-port my_switch veth-VinhDN1 -- set port veth-VinhDN1 tag=10`
+
+    `ovs-vsctl add-port my_switch veth-VinhDN2 -- set port veth-VinhDN2 tag=20`
+
+    - check: 
+
+    ![abc](../images/namespace18.png)
+    
+* Phía namespace DHCP 
+    
+    - Tạo namespace :
+
+    `ip netns add DHCP1`
+
+    `ip netns add DHCP2`
+
+    - Gán interface vào namespace DHCP
+     
+     `ip link set tap1 netns DHCP1`
+    
+    `ip link set tap2 netns DHCP2`
+    
+    - Tạo và Gán giá trị các interface vào OvS
+    
+    `ovs-vsctl add-port my_switch vport1 -- set interface vport1 type=internal`
+
+    `ovs-vsctl set port vport1 tag=10`
+
+    `ovs-vsctl add-port my_switch vport2 -- set interface vport2 type=internal`
+
+    `ovs-vsctl set port vport2 tag=20`
+* Tạo range ip và gán ip cho DHCP:
+
+    - Up các cổng trong namespace DHCP:
+     
+     `ip netns exec DHCP1 bash`
+
+    `ip link set dev lo up`
+    
+     `ip link set dev vport1 up`
+ 
+    `ip address add 10.0.10.2/24 dev vport1`
+    
+    - Cấu hình dải địa chỉ của DHCP cho namespace VinhDN1
+ 
+    `ip netns exec DHCP1 dnsmasq --interface=vport1 \
+ --dhcp-range=172.16.10.10,172.16.10.100,255.255.0.0`
+
+ **Tương tự với DHCP 2**
+
+ * Kết quả
+    
+    - Câu lệnh xin cấp phát địa chỉ ip vào interface 
+ `ip netns exec VinhDN1 dhclient eth1-VinhDN1`
+
+    - check: `ip netns exec VinhDN1 ip a`
+
+    ![abc](../images/namespace17.png)
 
 ---
 http://man7.org/linux/man-pages/man4/veth.4.html
