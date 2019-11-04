@@ -214,12 +214,12 @@ Lệnh: `ip netns exec <namespace> ping -c<n> <IP>`
     - Thực hiện gán địa chỉ ip cho vport1 :172.0.0.1/24 , vport2: 172.0.0.2/24
 
 ![images](../images/namespace15.png)
-<<<<<<< HEAD
+
 
 ### 3.3 Cấu hình DHCP namespace cấp ip cho network namespace
 **Mô hình**
 
-![abc](namespaceovsdhcp.png)
+![abc](../images/namespaceovsdhcp.png)
 
 
  **Cấu hình**
@@ -310,7 +310,7 @@ Lệnh: `ip netns exec <namespace> ping -c<n> <IP>`
 
     ![abc](../images/namespace17.png)
 =======
->>>>>>> 2cb18b19c783a65d7222d87dc483620112427699
+
 
 ---
 http://man7.org/linux/man-pages/man4/veth.4.html
