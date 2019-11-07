@@ -83,4 +83,11 @@
     
     - Show VLAN: `bridge vlan show`
 
+### Mô hình Linux Bridge trong OpenStack
 
+![images](../images/linuxbridgeop.png)
+
+--- 
+Tham khảo
+
+http://man7.org/linux/man-pages/man8/bridge.8.html
