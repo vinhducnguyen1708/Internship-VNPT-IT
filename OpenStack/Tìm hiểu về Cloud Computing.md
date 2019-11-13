@@ -24,9 +24,9 @@
 * Điện toán đấm mây đơn giản chỉ là một tập hợp các tài nguyên máy tính gộp lại và cung cấp dịch vụ trên các kênh web. Khi chúng ta biểu đồ mối quan hệ giữa tất cả các yếu tố thì chúng tương tự như một đám mây.
 
 <a name = '2'></a>
-### **Các đặc điểm của Cloud Computing**
+### **5 đặc điểm của Cloud Computing**
 
-*5 Đặc Điểm:*
+***5 Đặc Điểm:***
 
 * Khả năng thu hồi và cấp phát tài nguyên (Rapid elasticity)
 
@@ -38,6 +38,7 @@
 
 * Chia sẻ tài nguyên (Resource pooling).
 <a name = '3'></a>
+
 *Lợi ích*
 
 * Sử dụng các tài nguyên tính toán động.
@@ -46,7 +47,7 @@
 * Tằng khả năng sử dụng tài nguyên tính toán
 
 <a name = '4'></a>
-### **Mô hình dịch vụ**
+### **4 Mô hình triển khai **
 
 ![images](../images/cloud.png)
 
@@ -60,7 +61,7 @@
 
 * Hybrid Cloud : Là mô hình kết hợp giữa mô hình Public Cloud và Private Cloud.
 <a name = '5'></a>
-### **Mô hình triển khai Cloud Computing**
+### **3 Mô hình dịch vụ**
 
 * Hạ tầng như một dịch vụ (Infrastructure as a Service)
     
