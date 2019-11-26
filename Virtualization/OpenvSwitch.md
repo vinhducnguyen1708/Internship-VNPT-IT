@@ -148,7 +148,158 @@
     - ovs-appctl fdb/show: Hiển thị các cặp mac/vlan.
 ---
 
+
+### 2.2.2.	Cấu hình Open Vswitch trong file /etc/network/interfaces
+
+-	Open vSwitch (OVS) thay thế cho Linux native Bridge, bonds và các interface vlan. OVS hỗ trợ hầu hết các đặc tính mà bạn mong muốn có như ở một switch vật lý, cung cấp một vài chức năng nâng cao như hỗ trợ RSTP, VXLAN, Open flow và hỗ trợ chia nhiều Vlan trên một bridge. Nếu bạn cần những tính năng này, hãy sử dụng OVS.
+
+-	Khi cài đạt OVS trên ubuntu, khi khởi động Ubuntu OVS cũng được khởi động. Một số bridge, port – mà đã được định nghĩa trước và lưu lại cũng sẽ được khởi động (cái này có vẻ hơi không chuẩn, vì khi cấu hình OVS, tất cả mọi thay đổi đều được lưu vào OVS database) 
+
+-	Phần này sẽ hướng dẫn cách cấu hình một số bridge, port, interface được lưu trong file `/etc/network/interfaces`. Mục đích khi cấu hình là khi máy khởi động – hoặc khi khởi động lại dịch vụ networking (ifdown – ifup/ service networking restart) thì những scrips trong linux sẽ tác động và dùng những tool của OVS để chỉnh sửa lại data của bridge, port, interfaces lại theo như cấu hình muốn lưu đó.
+
+-	Lưu ý: mỗi bridge, port, interface là duy nhất trong hệ thống linux nên khi cấu hình trong file interfaces, tất cả mọi cấu hình trước đó trên một bridge (bridge mà cấu hình trong file interfaces) sẽ không được giữ lại và thay đổi theo cấu hình mà mình lưu trong file interfaces. (Hay hiểu theo cách đơn giản thì mọi dữ liệu, thông tin về các thành phần của OVS được lưu trong ovsdb, nên khi bạn cấu hình – bằng câu lệnh như `ovs-vsctl`, `ovs-apptcl`, ...  thì dữ liệu đó cũng thay đổi theo. Nhưng khi lưu lại cấu hình trong file interfaces thì khi khởi động lại dịch vụ network – hệ thống sẽ chạy dần những dòng cấu hình trong file => dẫn tới là chạy những scrip làm thay đổi dữ liệu trong ovsdb của bạn)
+
+<a name = '2.2.2.1'></a>
+#### 2.2.2.1.	Define a bridge
+
+Tất cả các port và interface trên Openvswitch phải được gán vào một bridge. Định nghĩa một bridge (hay virtual switch) yêu cầu những cấu hình sau:
+
+`ovs-vsctl add-br ovsbr1`
+
+Câu lệnh trên tương tự như định nghĩa trong file `/etc/network/interfaces` như sau: 
+
+```
+# create an Openvswitch bridge
+# on the commandline: ovs-vsctl add-br ovsbr1
+auto ovsbr1
+allow-ovs ovsbr1
+iface ovsbr1 inet manual
+	ovs_type OVSBridge
+```
+
+Trong đó: 
+
+-	`auto`: cho phép bridge ovsbr1 tự động được khởi động bật lên cùng hệ thống. 
+
+-	`allow-ovs` : thông báo cho hệ thống biết đó là một Open Vswitch bridge. Bridge tên ovsbr1
+
+-	`iface`: định danh cho một interface trong file /etc/network.interfaces để khởi động cấu hình khi bắt đầu khởi động hệ thống.
+
+-	`ovs_type`: Định nghĩa loại interface cho OVS. OVSBridge đại diện cho một OVS bridge.
+
+
+<a name = '2.2.2.2'></a>
+#### Define a L2 port (untagged)
+
+- Phần này định nghĩa một port thuần layer 2 của switch (chỉ có nhiệm vụ forwarding gói tin, không có chức năng chia Vlan ... ) 
+
+- Thêm một port layer 2 vào bridge vừa tạo ở trên (port này không là port local, nên hệ thống linux không "nhìn" thấy được)
+
+	`ovs-vsctl add-port ovsbr1 l2port`
+
+- Câu lệnh này tương được cấu hình trong file `/etc/network/interfaces` như sau: 
+
+	```
+	# create an untagged ovs port in vlan 444
+	# (config not yet complete)
+	allow-ovsbr1 l2port
+	iface l2port inet manual
+	  ovs_bridge ovsbr1
+	  ovs_type OVSPort
+	  ovs_options tag=444
+	```
+	Trong đó: 
+	
+	-	`allow-[name_of_the_bridge_to_attach_the_port]`: thông số xác định tên bridge mà port sẽ gán vào. Trong ví dụ này ovsbr1. Port tên l2port. 
+	
+	-	`iface`: Tương tự trên.
+	
+	-	`ovs-bridge`: thông số xác định bridge mà port sẽ attack vào. holds the name of the bridge to which the port should be attached to. In our example this is vmbr-int.
+	
+	-	`ovs_type`: Định nghĩa loại interface cho OVS. OVSPort xác định một port cảu OVS mà HĐH linux không "nhìn" thấy nó, nó chỉ bị quản lý bởi OVS.
+
+	-	`ovs_options`: Định nghĩa thêm một số option cho port. ví dụ: gán port cho vlan 444.
+
+
+#### Define a L2 port (tagged/trunking)
+
+Định nghĩa port layer 2 mà có thể dùng làm port trunk (tagged port - port để gán tag các vlan)
+
+```
+# create an tagged ovs port
+allow-ovsbr1 l2taggedport
+iface l2taggedport inet manual
+  ovs_bridge ovsbr1
+  ovs_type OVSPort
+  ovs_options trunks=2101,2102,2110,2120,2999,3000
+```
+
+Một port trunk không cần cấu hình gì thêm như port access bình thường, chỉ cần cấu hình phần options thêm các vlan mà nó cần gắn tag vào.
+
+`ovs_options trunks=<vlan1_id>,<vlan2_id>,<vlan3_id>,<vlan4_id>,<vlan5_id>,...`
+
+
+####Define a L3 interface
+
+- Định nghĩa một interface layer 3 (gán được địa chỉ IP):
+
+	```
+	# create an untagged ovs port in vlan 444
+	allow-ovsbr1 l3port
+	iface l3port inet static
+	  ovs_bridge ovsbr1
+	  ovs_type OVSIntPort
+	  ovs_options tag=444
+	  address 192.168.1.254                   #hoặc cấu hình: address 192.168.1.254/24
+	  netmask 255.255.255.0
+	```
+
+	Với: 
+
+	-	`iface`: thiết lập mode static, bởi địa chỉ IP được cấu hình cho interface này.
+
+	-	`ovs_type` :một L3 port phải được để kiểu Internal port - OVSIntPort (không hiểu tại sao :D ) – cái cổng này cần được cấp IP, nên mình nghĩ, cái IP stack nó nằm trong hệ thống linux, nên phải được nhìn thấy thì mới có thể cấp IP – đoán thế)
+
+	-	`address - netmask`: địa chỉ và sunetmask cho port.
+
+- Và cấu hình thêm port này vào đoạn cấu hình của bridge ovsbr1: 
+	
+	```
+	auto ovsbr1
+	allow-ovs ovsbr1
+	iface ovsbr1 inet manual
+	  ovs_type OVSBridge
+	  ovs_ports l2port l3port
+	```
+
+
+#### Define a fake bridge
+
+- Tương tự như định nghĩa một bridge thông thường. 
+
+	`ovs-vsctl add-br ovsbr-fakebr ovsbr1 2102`
+
+- Định nghĩa trong file `/etc/network/interfaces`: 
+
+	```
+	# a fake bridge without an ip address
+	allow-ovsbr1 ovsbr-fakebr
+	iface ovsbr-fakebr inet manual
+	  ovs_bridge ovsbr1
+	  ovs_type OVSBridge
+	  ovs_options ovsbr1 2102
+	```
+	Với: 
+	
+	-	`ovs_type`: chọn là OVSBridge. 
+	
+	-	`ovs_options`: được thiết lập tới bridge parent (ở đây là ovsbr1) và id của vlan trên fake bridge đó. Định nghĩa một fake bridge đại diện cho vlan 2102. Các VM gắn vào bridge này sẽ auto join vào vlan 2102.
+
 https://blog.csdn.net/ifzing/article/details/41308449
 
 
 https://arthurchiao.github.io/blog/ovs-deep-dive-0-overview/
+
+http://openvswitch.org/support/dist-docs/ovs-vsctl.8.html
+
+http://www.opencloudblog.com/?p=240 
