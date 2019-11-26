@@ -239,7 +239,7 @@ Một port trunk không cần cấu hình gì thêm như port access bình thư�
 `ovs_options trunks=<vlan1_id>,<vlan2_id>,<vlan3_id>,<vlan4_id>,<vlan5_id>,...`
 
 
-####Define a L3 interface
+#### Define a L3 interface
 
 - Định nghĩa một interface layer 3 (gán được địa chỉ IP):
 
@@ -296,7 +296,6 @@ Một port trunk không cần cấu hình gì thêm như port access bình thư�
 	-	`ovs_options`: được thiết lập tới bridge parent (ở đây là ovsbr1) và id của vlan trên fake bridge đó. Định nghĩa một fake bridge đại diện cho vlan 2102. Các VM gắn vào bridge này sẽ auto join vào vlan 2102.
 
 https://blog.csdn.net/ifzing/article/details/41308449
-
 
 https://arthurchiao.github.io/blog/ovs-deep-dive-0-overview/
 
