@@ -32,7 +32,7 @@ Vì đã thiết lập dữ liệu xác thực như biến môi trường cho h�
 ```
 openstack token issue
 ```
-![images](images/lenhkeystone1.png)
+![images](Images/lenhkeystone1.png)
 
 <a name="1.2"></a>
 ### 1.2 Listing Users
@@ -41,7 +41,7 @@ openstack token issue
 ```
 openstack user list
 ```
-![images]images/(lenhkeystone2.png)
+![images](Images/lenhkeystone2.png)
 
 <a name="1.3"></a>
 ### 1.3 Listing projects
@@ -52,7 +52,7 @@ openstack user list
 openstack project list
 ```
 
-![images](images/lenhkeystone3.png)
+![images](Images/lenhkeystone3.png)
 
 <a name="1.4"></a>
 ### 1.4 Listing roles
@@ -62,7 +62,7 @@ Cũng giống như các câu lệnh trên, OPS cũng tạo một số role mặc
 ```
 openstack role list
 ```
-![images](images/lenhkeystone4.png)
+![images](Images/lenhkeystone4.png)
 
 <a name="1.5"></a>
 ### 1.5 Listing domains
@@ -72,7 +72,7 @@ openstack role list
 ```
 openstack domain list
 ```
-![images](images/lenhkeystone5.png)
+![images](Images/lenhkeystone5.png)
 <a name="1.6"></a>
 ### 1.6 Listing groups
 
@@ -84,7 +84,7 @@ openstack domain list
 ```
 openstack domain create vinhcompany
 ```
-![images](images/lenhkeystone7.png)
+![images](Images/lenhkeystone7.png)
 
 <a name="1.8"></a>
 ### 1.8 Tạo một Project trong Domain
@@ -95,7 +95,7 @@ openstack domain create vinhcompany
 openstack project create vinhtest --domain vinhcompany --description "vinh dang test"
 
 ```
-![images](images/lenhkeystone8.png)
+![images](Images/lenhkeystone8.png)
 
 <a name="1.9"></a>
 ### 1.9 Tạo User trong Domain
@@ -108,7 +108,7 @@ openstack user create vinh178 --email vinh178@gmail.com \
 --password vinh178
 ```
 
-![images](images/lenhkeystone9.png)
+![images](Images/lenhkeystone9.png)
 
 <a name="1.10"></a>
 ### 1.10 Gán role user truy nhập vào project
@@ -119,7 +119,7 @@ openstack user create vinh178 --email vinh178@gmail.com \
 openstack role add member --project vinhtest --project-domain vinhcompany --user vinh178 --user-domain vinhcompany
 ```
 
-![images](images/lenhkeystone10.png)
+![images](Images/lenhkeystone10.png)
 <a name="1.11"></a>
 ### 1.11 Xác thực người dùng
 
@@ -134,7 +134,7 @@ $ export OS_PROJECT_NAME=vinhtest
 $ export OS_USER_DOMAIN_NAME=vinhcompany
 $ export OS_PROJECT_DOMAIN_NAME=vinhcompany
 ```
-![images](images/lenhkeystone11.png)
+![images](Images/lenhkeystone11.png)
 
 
 --- 

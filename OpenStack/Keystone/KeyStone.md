@@ -25,7 +25,7 @@ Trong OpenStack (OPS), Keystone là một trong những project core (tức là 
 
 ## 2. Các thành phần trong Keystone
 
-![images](images/keystonebe.png)
+![images](Images/keystonebe.png)
 
 - Token Backend:  xác nhận và quản lý các Tokens sử dụng cho việc xác thực các yêu cầu sau khi thông tin của các user/project đã được xác thực.
 
@@ -71,7 +71,7 @@ Tất cả project đều kết nối đến KeyStone. Các project sau khi nh�
 
 - Mỗi project khi nhận được token yêu cầu sẽ gửi lại cho Keystone yêu cầu xác thực rồi mới thực hiện service.
 
-![keystone](images/Keystonetk.png)
+![keystone](Images/Keystonetk.png)
 
 - Keystone quản lý các user, project(tenants), roles, chịu trách nhiệm xác thực và ấn định quyền truy cập các tài nguyên trong hệ thống. Có ba khái niệm chính trong tính năng User Management:
     - User: là tải khoản của người sử dụng dịch vụ, bao gồm một số thông tin như: username, password, email
