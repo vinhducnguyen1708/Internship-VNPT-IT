@@ -25,7 +25,8 @@ Trong OpenStack (OPS), Keystone là một trong những project core (tức là 
 
 ## 2. Các thành phần trong Keystone
 
-![images](Images/keystonebe.png)
+
+![images](Images/Keystonebe.png)
 
 - Token Backend:  xác nhận và quản lý các Tokens sử dụng cho việc xác thực các yêu cầu sau khi thông tin của các user/project đã được xác thực.
 
