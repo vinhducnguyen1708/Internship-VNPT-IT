@@ -51,11 +51,12 @@ Và cuối cùng CLoud init sẽ xử lý đưa tất cả các  dữ liệu tù
 - File cấu hình chứa 3 module chính là 
     - **cloud_init_modules:** Tại đây sẽ yêu cầu các cấu hình mạng phải hoạt động để có thể lấy user-data về, chạy disk-setup và thực hiện tạo phân vùng.
 
-    ![ima](ima/cloudinit1.png)
+        ![ima](ima/cloudinit1.png)
     - **cloud_config_modules:** Tại đây sẽ chỉ chạy modules cấu hình khi boot mà không ảnh hưởng đến modules khác
-    ![ima](ima/cloudinit2.png)
+        ![ima](ima/cloudinit2.png)
     - **cloud_final_modules:** Tại đây chạy các câu lệnh cài đặt
-    ![ima](ima/cloudinit3.png)
+
+        ![ima](ima/cloudinit3.png)
 
 
 Trong 3 modules này chứa các Job mặc định của Cloud- init, ta có thể thay đổi các Jobs này, định nghĩa ra các Jobs mới
@@ -126,15 +127,35 @@ chpasswd:
     root:<password_root>
     <username>:<password_username>
   expire: False
-  
+
+package_upgrade: true 
+
 packages:
  - apache2
- - php5
+ - chrony
  - php5-mysql
  - mysql-server
 
 runcmd:
- - apt-get install update
  - ip a
  - apt-get install ftpd-hpa inetutils-inetd -y
  ```
+
+ - Reboot/shutdown sau khi tạo xong VM
+ ```
+
+ power_state:
+ delay: "+10"  # delay 10 phút sau khi thực hiện tiếp tiến trình
+ mode: poweroff
+ message: Bye Bye
+ timeout: 30 # cho phép cloud init process chạy hoàn thành trong 30s trước khi tắt máy
+ condition: True
+ ```
+
+ --- Tham khảo 
+
+ https://github.com/vdcit/Cloud-Init
+
+ https://cloudinit.readthedocs.io/en/latest/topics/examples.html
+
+ 
