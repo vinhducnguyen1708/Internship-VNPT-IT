@@ -113,6 +113,20 @@ nova list
 nova show <name>
 ```
 
+- Thực hiện boot 1 VM:
+
+    Option: 
+    - Flavor : tiny
+    - Image id : ubuntu16.04-byvinh-2019
+    - NIC net: 76ba1018-2675-4186-af53-a6153a667533
+    - user-data: `abc.txt`
+    - security-group: default 
+    - VM Name: vm-test-init
+```
+nova boot --flavor mini --image ubuntu16.04-byvinh-2019 --nic net-id=76ba1018-2675-4186-af53-a6153a667533 --user-data `abc.txt` --security-groups default  vm-test-init
+
+```
+
 - Thay đổi thông tin instance
 
 ```
