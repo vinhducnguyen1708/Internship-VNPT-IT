@@ -13,7 +13,6 @@
 
 [6. Image và Instance](#6)
 
-[7. Glance image cache](#7)
 
 [Tham khảo](#tk)
 
@@ -134,16 +133,7 @@ Trạng thái biểu thị việc không được phép truy cập vào dữ li�
 
 - Khi máy ảo bị xóa, ephemeral storage (khối lưu trữ không bền vững) bị xóa; tài nguyên vCPU và bộ nhớ được giải phóng. Image không bị thay đổi sau tiến trình này.
 
-<a name="7"></a>
-## 7. Glance image cache
 
-- Việc kích hoạt Glance cache thường được khuyên khi sử dụng hệ thống lưu trữ mặc định là file, tuy nhiên nếu sử dụng Ceph RBD backend sẽ có một số khác biệt.
-
-- Kích hoạt glance cache dẫn tới việc tạo ra cached của image đó trong thư mục /var/lib/glance/image-cache mỗi lần boot máy ảo lên. Giả sử ta có một máy ảo với kích thước VM image là cỡ 50GB, nếu như mỗi lần boot mà lại tạo cached như vây, hệ thống lưu trữ sẽ sớm bị cạn kiệt, trừ khi ta mount thư mục /var vào một ổ lưu trữ lớn.
-
-- Glance API server có thể được cấu hình để có thư mục lưu trữ image cache local. Một thưc mục local image cache lưu trữ một bản copy của các image, về cơ bản điều này cho phép nhiều API server phục vụ cùng các file image giống nhau, để mở rộng khả năng phục vụ của Glance.
-
-- Local image cache là trong suốt với người dùng. Người dùng cuối không biết được Glance API đang chuyển các file image từ local cache hay từ hệ thống backend lưu trữ thực sự.
 
 ---
 

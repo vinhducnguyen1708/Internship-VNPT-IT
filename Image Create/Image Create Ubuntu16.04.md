@@ -88,6 +88,8 @@ service apparmor reload
 - **Cài đặt cloud-init, cloud-utils và cloud-initramfs-growroot**
 ( Để máy ảo khi boot sẽ tự giãn phân vùng theo dung lượng mới)
 
+
+
 ```
 apt-get install cloud-utils cloud-initramfs-growroot cloud-init -y
 ```
