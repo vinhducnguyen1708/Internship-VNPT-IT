@@ -127,6 +127,9 @@ Lưu lại
 ```
 update-grub
 ```
+( Sẽ để thực hiện như thế này )
+
+![ima](ima/kvm28.png)
 
 - **Xóa toàn bộ các thông tin về địa chỉ MAC của card mạng ảo trong 2 file `/etc/udev/rules.d/70-persistent-net.rules` và 
 `/lib/udev/rules.d/75-persistent-net-generator.rules`** ( chỉ xóa nội dung không xóa file)
@@ -215,7 +218,15 @@ glance image-create --name ubuntu16.04-byvinh-2019 \
 ![ima](ima/kvm26.png)
 -
 ![ima](ima/kvm27.png) 
+
+
+## Kiểm tra bằng cách tạo máy ảo 
+
+![ima](ima/kvm29.png)
 ---
+
+
+
 Tham khao
 
 https://github.com/longsube/Image_Create/blob/master/docs/Ubuntu14.04_noLVM%2Bqemu_ga.md#m%E1%BB%A5c-%C4%91%C3%ADch-l%C3%A0-ph%C3%A2n-quy%E1%BB%81n-cho-ph%C3%A9p-libvirt-qemu-%C4%91%C6%B0%E1%BB%A3c-%C4%91%E1%BB%8Dc-ghi-c%C3%A1c-file-c%C3%B3-h%E1%BA%ADu-t%E1%BB%91-qemuguest_agent0-trong-th%C6%B0-m%E1%BB%A5c-varliblibvirtqemuchanneltarget
