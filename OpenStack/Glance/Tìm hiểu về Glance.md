@@ -39,7 +39,7 @@
 - Glance bao gồm các thành phần :
 
     - Glance API: tiếp nhận lời gọi API từ các project khác để tìm kiếm, thu thập và xuất images.
-    - Glance registry: Thực hiện các tác vụ lưu trữ, xử lý và thu nhập metadata của images. (giờ đã không còn sử dụng)
+    - Glance registry: Thực hiện các tác vụ lưu trữ, xử lý và thu nhập metadata của images. 
 
     - Database: Cơ sở dữ liệu lưu trữ metadata của images.
 
