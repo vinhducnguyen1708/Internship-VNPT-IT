@@ -1,0 +1,38 @@
+
+- name: Config in file server.conf
+  lineinfile:
+    path: /etc/my.cnf.d/server.cnf
+    insertafter: '\[mysqld\]'
+    line: "{{ item }}"
+  with_items:
+    - bind-address=192.168.30.37
+- name: Config in file server.conf
+  lineinfile:
+    path: /etc/my.cnf.d/server.cnf
+    insertafter: '\[galera\]'
+    line: "{{ item }}"
+  with_items:
+     - wsrep_on=ON
+     - wsrep_provider=/usr/lib64/galera/libgalera_smm.so
+     - wsrep_cluster_address="gcomm://192.168.30.37,192.168.30.31"
+     - binlog_format=row
+     - default_storage_engine=InnoDB
+     - innodb_autoinc_lock_mode=2
+     - wsrep_cluster_name="portal_cluster"
+     - bind-address=192.168.30.37
+     - wsrep_node_address="192.168.30.37"
+     - wsrep_node_name="node1"
+     - wsrep_sst_method=rsync
+
+- name: Create cluster
+  command: galera_new_cluster
+- name: start mariadb service
+  systemd:
+    name: mariadb
+    state: started
+- name: enable mariadb service
+  systemd:
+    name: mariadb
+    enabled: yes
+    masked: no
+
