@@ -2,7 +2,7 @@
 
 ## Highly-Available Infrastructure with Ansible
 ### Mô hình triển khai
-![ima](images/ch8-1.PNG)
+![ima](images/ch8-1.png)
 
 - **Varnish**: Server làm LoadBalancer , reverse proxy 
 - **Apache**: Webserver chạy PHP
