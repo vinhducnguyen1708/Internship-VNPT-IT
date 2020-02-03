@@ -1,0 +1,5 @@
+[node-centos-master]
+192.168.30.37
+
+[node-centos-slave]
+192.168.20.29

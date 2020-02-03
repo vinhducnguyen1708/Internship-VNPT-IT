@@ -1,0 +1,2 @@
+- include: playbooks/node-master-cen/install-mariadb-masternode.yml
+- include: playbooks/node-slave-cen/install-mariadb-slavenode.yml
