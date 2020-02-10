@@ -1,0 +1,2 @@
+- include: playbooks/node-clustermain-cen/install-mariadb-clustermain.yml
+- include: playbooks/node-cluster-cen/install-mariadb-cluster.yml

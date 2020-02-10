@@ -1,3 +1,0 @@
-- hosts: node-centos-slave1
-  roles:
-   - mariadb

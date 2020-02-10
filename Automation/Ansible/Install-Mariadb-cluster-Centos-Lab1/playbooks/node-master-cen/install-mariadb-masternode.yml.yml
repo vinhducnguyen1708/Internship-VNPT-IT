@@ -1,3 +1,0 @@
-- hosts: node-centos-master
-  roles:
-   - mariadb

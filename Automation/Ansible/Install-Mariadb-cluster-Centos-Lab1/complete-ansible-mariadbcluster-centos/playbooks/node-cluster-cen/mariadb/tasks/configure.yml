@@ -1,11 +1,10 @@
-
 - name: Config in file server.conf
   lineinfile:
     path: /etc/my.cnf.d/server.cnf
     insertafter: '\[mysqld\]'
     line: "{{ item }}"
   with_items:
-    - bind-address={{ node_slave }}
+    - bind-address={{ node_cluster }}
 - name: Config in file server.conf
   lineinfile:
     path: /etc/my.cnf.d/server.cnf
@@ -19,12 +18,13 @@
      - default_storage_engine=InnoDB
      - innodb_autoinc_lock_mode=2
      - wsrep_cluster_name="portal_cluster"
-     - bind-address={{ node_slave }}
-     - wsrep_node_address="{{ node_slave }}"
-     - wsrep_node_name="{{ node_number }}"
+     - bind-address={{ node_cluster }}
+     - wsrep_node_address="{{ node_cluster }}"
+     - wsrep_node_name="{{ node_number }} "
      - wsrep_sst_method=rsync
 
-
+#- name: Create cluster
+#  command: galera_new_cluster
 - name: start mariadb service
   systemd:
     name: mariadb

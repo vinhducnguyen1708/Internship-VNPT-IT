@@ -2,4 +2,3 @@
 #### Install MariaDB-cluster
 - include: install.yml
 - include: configure.yml
-

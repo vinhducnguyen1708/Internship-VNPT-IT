@@ -1,11 +1,10 @@
-
 - name: Config in file server.conf
   lineinfile:
     path: /etc/my.cnf.d/server.cnf
     insertafter: '\[mysqld\]'
     line: "{{ item }}"
   with_items:
-    - bind-address={{ node_master }}
+    - bind-address= 0.0.0.0
 - name: Config in file server.conf
   lineinfile:
     path: /etc/my.cnf.d/server.cnf
@@ -19,8 +18,8 @@
      - default_storage_engine=InnoDB
      - innodb_autoinc_lock_mode=2
      - wsrep_cluster_name="portal_cluster"
-     - bind-address={{ node_master }}
-     - wsrep_node_address="{{ node_master }}"
+     - bind-address=0.0.0.0
+     - wsrep_node_address="{{ node_clustermain }}"
      - wsrep_node_name="{{ node_number }}"
      - wsrep_sst_method=rsync
 
