@@ -1,0 +1,18 @@
+- name: restart zabbix-server
+  service:
+    name: zabbix-server
+    state: restarted
+- name: restart httpd
+  service:
+    name: httpd
+    state: restarted
+- name: enable zabbix-server
+  systemd:
+    name: httpd
+    enabled: yes
+- name: enable httpd
+  systemd:
+    name: httpd
+    enabled: yes
+
+

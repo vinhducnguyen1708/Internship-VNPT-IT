@@ -1,0 +1,89 @@
+- name: Ensureing firewalld is disable
+  yum: name=firewalld state=present
+
+- name: Ensureing firewalld is stopped
+  yum: name=firewalld state=absent
+
+- name: Ansible replace string example
+  replace:
+    path: /etc/sysconfig/selinux
+    regexp: 'enforcing'
+    replace: "disabled"
+- name: kgkg
+  shell: setenforce 0
+  ignore_errors: true
+- name: install updates using yum
+  yum:
+    name: "*"
+    state: latest
+- name: Install PHP packages
+  yum:
+    name:
+     "{{ php_packages }}"
+- name: install updates using yum
+  yum:
+    name: "*"
+    state: latest
+- name: Install PyMYSQL
+  yum:
+    name:
+      - python-pip
+      - python2-PyMySQL
+- name: install updates using yum
+  yum:
+    name: "*"
+    state: latest
+
+- name: Create MySQL Database
+  mysql_db: 
+    name: "{{ zabbix_DBName }}"
+    encoding: utf8
+    collation: utf8_bin
+    state: present
+- name: Create database user with name 'zabbix' and password '12345' with all database privileges
+  mysql_user:
+    name: "{{ zabbix_DBUser }}"
+    password: "{{ zabbix_DBpassword }}"
+    priv: '{{ zabbix_DBName }}.*:ALL'
+    host: localhost
+    state: present
+- name: Addkey
+  command: rpm -Uvh https://repo.zabbix.com/zabbix/4.4/rhel/7/x86_64/zabbix-release-4.4-1.el7.noarch.rpm
+  ignore_errors: True
+- name: Install Zabbix
+  yum:
+    name:
+     "{{ zabbix_server_packages }}"
+- name: Import Databases
+  shell: zcat /usr/share/doc/zabbix-server-mysql-4.4.5/create.sql.gz | mysql -u{{ zabbix_DBUser}} -p{{ zabbix_DBpassword }} {{ zabbix_DBName}}
+  ignore_errors: True   
+#  mysql_db:
+#    name: zabbix
+#    config_file: no
+#    state: import
+#    target: /usr/share/doc/zabbix-server-mysql-4.4.5/create.sql.gz
+- name: Uncomment DBHost
+  replace:
+    path: /etc/zabbix/zabbix_server.conf
+    regexp: '^#(.*DBHost=localhost.*)'
+    replace: '\1'
+- name: Uncomment DBPassword
+  replace:
+    path: /etc/zabbix/zabbix_server.conf
+    regexp: '^#(.*DBPassword=)'
+    replace: '\1'
+- name: Set DBPassword
+  lineinfile:
+     path: /etc/zabbix/zabbix_server.conf
+     regexp: '.*DBPassword='
+     line: DBPassword={{ zabbix_DBpassword }}
+- name: Config PHP
+  replace:
+    path: /etc/httpd/conf.d/zabbix.conf
+    regexp: '#(.*php_value.*date.timezone).*'
+    replace: '\1 Asia/Ho_Chi_Minh'
+  notify:
+    - restart zabbix-server
+    - restart httpd
+    - enable zabbix-server
+    - enable httpd

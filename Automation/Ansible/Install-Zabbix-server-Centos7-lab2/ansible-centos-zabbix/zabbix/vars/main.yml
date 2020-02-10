@@ -1,0 +1,26 @@
+php_packages: 
+  - php
+  - php-devel
+  - php-bcmath
+  - php-pear
+  - php-gd
+  - php-mbstring
+  - php-mysql
+  - php-xml
+  - epel-release
+  #- python-pip
+  #- python2-PyMySQL
+
+zabbix_packages:
+  - zabbix-server-mysql
+  - zabbix-web-mysql
+zabbix_DBHost: localhost  
+zabbix_DBName: zabbix
+zabbix_DBUser: zabbix
+zabbix_DBpassword: 12345
+
+zabbix_server_packages:
+  - zabbix-server-mysql
+  - zabbix-web-mysql
+
+
