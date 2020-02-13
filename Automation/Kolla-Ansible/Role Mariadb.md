@@ -84,14 +84,14 @@
         - "{{ default_extra_volumes }}"
     # Tức là lại khai báo thêm biến con `image` có giá trị phía dưới
 	```
-- **Ví dụ ** đoạn 2:
+- **Ví dụ** đoạn 2:
     ```
     ...
     mariadb_backup_host: "{{ groups['mariadb'][0] }}"
     ...
     ```
     - Ở đây tức là lấy tên host hoặc địa chỉ ip được khai báo ở group `[mariadb]` trong file `/iventory/all-in-one` hoặc `/inventory/multinode` và thông số `[0]` là lấy thông tin dòng đầu tiên(host ở dòng đầu)
--  **Ví dụ ** đoạn 3:
+-  **Ví dụ** đoạn 3:
 	```
 	internal_haproxy_members: "{% for host in groups['mariadb'] %}server {{ hostvars[host]['ansible_hostname'] }} {{ 'api' | kolla_address(host) }}:{{ mariadb_port }} check inter 2000 rise 2 fall 5{% if not loop.first %} backup{% endif %};{% endfor %}"
 	external_haproxy_members: "{% for host in groups['mariadb'] %}server {{ host }} {{ host }}:{{ mariadb_port }} check inter 2000 rise 2 fall 5{% if not loop.first %} backup{% endif %};{% endfor %}"
@@ -141,6 +141,55 @@
     - `until: check_mariadb_port is success` cho đến khi port tồn tại thì chạy tiếp còn nếu không thực hiện `retries` 10 lần mỗi lần `delay` 6s rồi failed
 
 
-<a name='1'></a>
+<a name='4'></a>
 ## **Tasks: Mariadb**
-- 
+<a name='4.1'></a>
+#### 4.1 `main.yml`
+- Đây là task chạy đầu tiên 
+- `- include_tasks: "{{ kolla_action }}.yml"`: Mục đích của task này là để đọc biến bạn khai báo `kolla_action=`
+<a name='4.3'></a>
+#### 4.3 `kolla-action=prechecks`
+- khi thực hiện cùng với thông số kolla-action=prechecks  thì sẽ chạy tasks `prechecks.yml` đầu tiên
+<a name='4.3.1'></a>
+##### prechecks.yml
+- Trong file `prechecks.yml`: 
+	- `name: Get container facts`: thực hiện đọc các khai báo của module `kolla_container_facts`
+	- `name: Checking free port for MariaDB`: Check `địa chỉ api` và `port 3306` xem có ở trạng thái stopped không bị sử dụng khi mà task `name: Get container facts` không được định nghĩa (thực thi)
+	- `name: Checking free port for MariaDB WSREP`: Check `địa chỉ api` và  `port 4567` xem có ở trạng thái stopped không bị sử dụng khi mà task `name: Get container facts` không được định nghĩa (thực thi)
+	- `name: Checking free port for MariaDB IST`: Tương tự như trên `port 4568` 
+	- `name: Checking free port for MariaDB SST`: Tương tự như trên với `port 4444`
+	- Nói chung 4 task dưới sẽ thực hiện check các port có đang bị sử dụng hay không nếu module `kolla_container_facts` không thu được fact trạng thái các port
+- Vậy là kết thúc nhiệm vụ của prechecks trong role mariadb
+
+<a name='4.4'></a>
+#### 4.4 `kolla-action=pull`
+- khi thực hiện cùng với thông số kolla-action=pull  thì sẽ chạy tasks `pull.yml` đầu tiên
+<a name='4.4.1'></a>
+##### pull.yml
+- Trong file pull.yml gồm :
+	- `name: Pulling mariadb image`: sử dụng module `kolla_docker` để kéo image về (`action: "pull_image"`)
+	- `  when: inventory_hostname in groups[item.value.group]  item.value.enabled | bool  ` : thực thi task khi mà trong file inventory có khai báo group `mariadb` và biến `enable_mariadb` được khai báo là `yes`,`1`,`on, `true`
+<a name='4.5'></a>
+#### 4.5 `kolla-action=deploy`
+- khi thực hiện cùng với thông số kolla-action=prechecks  thì sẽ chạy tasks `deploy.yml` đầu tiên
+- Trong task `deploy.yml` này sẽ dẫn đến rất nhiều các tasks khác để thực thi như sau đây
+<a name='4.5.2'></a>
+##### config.yml
+- Trong task `config.yml` gồm:
+	- `name: Ensuring config directories exist`: 
+	
+		- Thực hiện tạo thư mục mặc định khai báo là `/etc/kolla/mariadb` và phân quyền  , Nếu thư mục tồn tại rồi thì sẽ `ok=1`
+		- `when: ....`: thực thi task khi mà trong file inventory có khai báo group `mariadb` và biến `enable_mariadb` được khai báo là `yes`,`1`,`on, `true`
+	- `name: Ensuring database backup config directory exists`:
+	
+		- Thực hiện tạo thư mục mặc định khai báo là `/etc/kolla/mariabackup` và phân quyền  , Nếu thư mục tồn tại rồi thì sẽ `ok=1`
+		- `when: ....`: thực thi task khi mà trong file inventory có khai báo group `mariadb_backup_host` và biến `enable_mariabackup` được khai báo là `yes`,`1`,`on, `true`
+	- `name: Copying over my.cnf for mariabackup`:
+	
+		- thực hiện thêm những dòng config vào file `/etc/mariadb/mariabackup/my.cnf` 
+		- Module `merge_config`: Module này thực hiện merge nhiều file config dạng INI thành 1 file
+	- ` name: Copying over config.json files for services`:
+	
+		- Thay đổi file config mặc định bằng file config trong mục `templates` ở đây là file `wsrep-notify.sh.j2`
+	- Sau đó thực hiện restart service 
+	
