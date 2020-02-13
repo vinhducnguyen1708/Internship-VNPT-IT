@@ -105,40 +105,15 @@
 - *Đây là nơi thực hiện khai báo các tác vụ chờ được gọi bằng tasks trong các file trong thư mục `/tasks/...yml`*
 <a name='2.1'></a>
 ### Handlers/main.yml : Mariadb
-
-#### `listen`
+#### Các modules trong file
+`1. listen`
 - Khái niệm:
     - Đây là module được sử dụng trong mục `handlers` nhằm khai báo các task chờ để sau đó gọi bằng `notify` trong tasks chính.
 - Khi Kolla-Ansible sử dụng: 
 
 ![ima](ima/kolla-mariadb1.png)
 
-#### `kolla_toolbox` 
-
-- Khái niệm: 
-    - Ở đây kolla-ansible sử dụng một module là `kolla-toolbox` để gọi đến các module của các service đặc thù bằng option `module_name` để gọi tên module và `module_args` là các thành phần trong module được gọi
-    ( Dài dòng so với ansible)
-- Khi Kolla-Ansible sử dụng: 
-    ```
-    - name: Creating haproxy mysql user
-  become: true
-  kolla_toolbox:
-    module_name: mysql_user
-    module_args:
-      login_host: "{{ api_interface_address }}"
-      login_port: "{{ mariadb_port }}"
-      login_user: "{{ database_user }}"
-      login_password: "{{ database_password }}"
-      name: "haproxy"
-      password: ""
-      host: "%"
-      priv: "*.*:USAGE"
-   ```
-
-- Chức năng khi sử dụng module này trong kolla-Ansible:
-    - Đây đơn giản là một thao tác tạo Database user cho Haproxy
-
-#### `wait_for`,`delay`,`until`,`retries`
+`2. wait_for`,`delay`,`until`,`retries`
 
 - Khái niệm: 
     - Module này sử dụng để chờ 1 service, host, port được khởi tạo trong một môi trường
@@ -166,4 +141,6 @@
     - `until: check_mariadb_port is success` cho đến khi port tồn tại thì chạy tiếp còn nếu không thực hiện `retries` 10 lần mỗi lần `delay` 6s rồi failed
 
 
-
+<a name='1'></a>
+## **Tasks: Mariadb**
+- 
