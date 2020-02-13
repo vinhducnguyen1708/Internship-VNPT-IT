@@ -1,50 +1,5 @@
-# Playbook site.yml
-
-#### `Serial`
-- Khái niệm:
-    - Module này sẽ giúp bạn thực hiện chạy playbook đồng thời trên nhiều node, để ví dụ nếu update các phiên bản sẽ tránh việc các node mất đồng bộ dẫn đến fail service
-- Khi Kolla-Ansible sử dụng: 
-```
-serial: '{{ kolla_serial|default("0") }}'
-```
-- Chức năng khi sử dụng module này trong kolla-Ansible:
-    - Ở đây Kolla-A tự tạo ra một biến là `kolla_serial` nhằm thực hiện tùy chỉnh thông số của module `serial` nếu không muốn mặc định là `0`. Ví dụ:
-```
-kolla-ansible bootstrap-servers -i INVENTORY -e kolla_serial=3
-```
-#### `Group_by`
-
-- Khái niệm:
-    -  Nhằm thực hiện đọc ghi thư mục inventory (trong kolla-ansible là `globals.yml` và `/group_vars/all.yml`) Ansible sinh ra 2 module `add_host` và `group_by`.
-- Khi Kolla-Ansible sử dụng: 
-```
-    - name: Group hosts based on enabled services
-      group_by:
-        key: "{{ item }}"
-      with_items:
-        - enable_aodh_{{ enable_aodh | bool }}
-        - enable_barbican_{{ enable_barbican | bool }}
-       ...
-```
-- Chức năng khi sử dụng module này trong kolla-Ansible:
-    
-    - Ở đây, tasks này được gọi ở đầu playbook `site.yml` nhằm mục đích đọc và ghi lại các service nào đã được ta khai báo trong file `/group_vars/all.yml`
-    - `bool` ở đây là bộ lọc để xác định biến ta khai báo có phải là `1`,`yes`,`true` không . Nếu đúng thì service ta chỉ định enable sẽ được cài.
-    - Ví dụ ta khai báo trong  `/group_vars/all.yml` :
-    ```
-    ...
-    enable_fluentd: "yes"
-    enable_grafana: "no"
-    ...
-    ```
-#### `set_fact`
-- Khái niệm:
-    - Module bản chất là một module cho phép đặt thêm các giá trị 
----
 # Role Mariadb
-
 # Cấu trúc: 
-
 - [defaults](#1)
     - [main.yml](#1.1)
 - [handlers](#2)
@@ -52,6 +7,35 @@ kolla-ansible bootstrap-servers -i INVENTORY -e kolla_serial=3
 - [meta](#3)
     - [main.yml](#3.1)
 - [tasks](#4)
+	- [main.yml](#4.1)
+	- [<kolla-action>=bootstrap-servers](#4.2)	
+		- [bootstrap.yml](#4.2.1)
+		- [lookup_cluster.yml](#4.2.2)
+		- [bootstrap_cluster.yml](#4.2.3)
+		- [recover_cluster.yml](#4.2.4)
+		- [wait_for_loadbalancer.yml](#4.2.5)
+	- [<kolla-action>=prechecks](#4.3)
+		- [prechecks.yml](#4.3.1)
+	- [<kolla-action>=pull](#4.4)
+		- [pull.yml](#4.4.1)
+	- [<kolla-action>=deploy](#4.5)
+		- [deploy.yml](#4.5.1)
+		- [config.yml](#4.5.2)
+		- [register.yml](#4.5.3)
+	- [<kolla-action>=mariadb_backup](#4.6)
+		- [backup.yml](#4.6.1)
+	- [<kolla-action>=deploy-containers](#4.7)
+		- [deploy-containers.yml](#4.7.1)
+		- [check-containers.yml](#4.7.2)
+		- [lookup_cluster.yml](#4.7.3)
+	- [<kolla-action>=reconfigure](#4.8)
+		- [reconfigure.yml](#4.8.1)
+	- [<kolla-action>=stop](#4.9)
+		- [stop.yml](#4.9.1)
+	- [<kolla-action>=upgrade](#4.10)
+		- [upgrade.yml](#4.10.1)
+	- [loadbalancer.yml](#4.11)
+	- [reconfigure.yml](#4.12)
 - [templates](#5)
 
 <a name='1'></a>
@@ -62,8 +46,7 @@ kolla-ansible bootstrap-servers -i INVENTORY -e kolla_serial=3
 <a name='1.1'></a>
 ### Defaults/main.yml : Mariadb
 - Đây là một file chứa biến của 1 role, các biến này được sử dụng rất nhiều lần nên khai báo khá rối, thậm chí trong 1 `tasks` của `mariadb` còn kéo 1 role tên là `haproxy-config` về để chạy các biến ở role `mariadb` này. 
-- Nên tôi chỉ ra một vài biến được khai báo trong file `/group_vars/all.yml` để custom cho role này.
-- **Ví dụ** Ở đoạn này: 
+- **Ví dụ** đoạn 1: 
     ```
     mariadb_services:
     mariadb:
@@ -100,14 +83,22 @@ kolla-ansible bootstrap-servers -i INVENTORY -e kolla_serial=3
         - "kolla_logs:/var/log/kolla/"
         - "{{ default_extra_volumes }}"
     # Tức là lại khai báo thêm biến con `image` có giá trị phía dưới
-- Ví dụ 2:
+	```
+- **Ví dụ ** đoạn 2:
     ```
     ...
     mariadb_backup_host: "{{ groups['mariadb'][0] }}"
     ...
     ```
     - Ở đây tức là lấy tên host hoặc địa chỉ ip được khai báo ở group `[mariadb]` trong file `/iventory/all-in-one` hoặc `/inventory/multinode` và thông số `[0]` là lấy thông tin dòng đầu tiên(host ở dòng đầu)
-
+-  **Ví dụ ** đoạn 3:
+	```
+	internal_haproxy_members: "{% for host in groups['mariadb'] %}server {{ hostvars[host]['ansible_hostname'] }} {{ 'api' | kolla_address(host) }}:{{ mariadb_port }} check inter 2000 rise 2 fall 5{% if not loop.first %} backup{% endif %};{% endfor %}"
+	external_haproxy_members: "{% for host in groups['mariadb'] %}server {{ host }} {{ host }}:{{ mariadb_port }} check inter 2000 rise 2 fall 5{% if not loop.first %} backup{% endif %};{% endfor %}"
+	```
+	- `inventory_hostname`: Là các cấu hình trong file inventory
+	- `{% for host in groups['mariadb'] %}`:  Sẽ liệt kê tất cả các host trong group `[mariadb]`
+	- `hostvars[host]['ansible_hostname']`:  `hostvars` sẽ được sử dụng khi bạn muốn mang một biến của host khác, giá trị fact của host khác về sử dụng. tên host [
 ---
 <a name='2'></a>
 ## **Handlers: Mariadb**
@@ -122,8 +113,8 @@ kolla-ansible bootstrap-servers -i INVENTORY -e kolla_serial=3
 
 ![ima](ima/kolla-mariadb1.png)
 
-
 #### `kolla_toolbox` 
+
 - Khái niệm: 
     - Ở đây kolla-ansible sử dụng một module là `kolla-toolbox` để gọi đến các module của các service đặc thù bằng option `module_name` để gọi tên module và `module_args` là các thành phần trong module được gọi
     ( Dài dòng so với ansible)
