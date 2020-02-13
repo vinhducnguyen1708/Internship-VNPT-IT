@@ -192,4 +192,25 @@
 	
 		- Thay đổi file config mặc định bằng file config trong mục `templates` ở đây là file `wsrep-notify.sh.j2`
 	- Sau đó thực hiện restart service 
-	
+<a name='4.5.3'></a>
+##### register.yml 
+- Trong task `register.yml` gồm:
+	- `- name: Creating the Mariabackup database`:
+			
+		- Sử dụng module do kolla-Ansible cung cấp `kolla_toolbox` để sử dụng các module của ansible 
+		- Ở đây `kolla_toolbox` sử dụng module `mysql_db` của ansible để  tạo Database
+		- Tương tự với `module_name: mysql_user` để tạo user cho database
+		- Với module `run_once` task này chỉ chạy trên host cài đặt mariadb 
+	- `when: enable_mariabackup | bool`: Task này sẽ thực hiện với điều kiện  biến `enable_mariadb` được khai báo là `yes`,`1`,`on, `true`
+
+<a name='4.6'></a>
+#### 4.6 `kolla-action=mariadb_backup`
+- khi thực hiện cùng với thông số kolla-action=mariadb_backup  thì sẽ chạy tasks `deploy.yml` đầu tiên
+<a name='4.6.1'></a>
+- Trong task `mariadb_backup.yml` gồm :
+	- `name: Taking {{ mariadb_backup_type }} database backup via Mariabackup`:
+		- Ở mặc định {{ mariadb_backup_type }} có giá trị `full` 
+		- ..................
+		
+		...
+		
