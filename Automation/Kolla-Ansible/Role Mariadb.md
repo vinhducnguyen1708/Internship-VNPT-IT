@@ -35,7 +35,6 @@
 	- [kolla-action=upgrade](#4.10)
 		- [upgrade.yml](#4.10.1)
 	- [loadbalancer.yml](#4.11)
-	- [reconfigure.yml](#4.12)
 - [templates](#5)
 
 <a name='1'></a>
@@ -147,12 +146,23 @@
 #### 4.1 `main.yml`
 - Đây là task chạy đầu tiên 
 - `- include_tasks: "{{ kolla_action }}.yml"`: Mục đích của task này là để đọc biến bạn khai báo `kolla_action=`
+
+<a name='4.1'></a>
+#### 4.2 `kolla-action=bootstrap`
+![ima](ima/kolla-mariadb4.png)
+
+- khi thực hiện cùng với thông số kolla-action=prechecks  thì sẽ chạy tasks `prechecks.yml`
+
+
 <a name='4.3'></a>
-#### 4.3 `kolla-action=prechecks`
+#### 4.3 `kolla-action=precheck`
 - khi thực hiện cùng với thông số kolla-action=prechecks  thì sẽ chạy tasks `prechecks.yml` đầu tiên
+
+    ![ima](ima/kolla-mariadb3.png)
+
 <a name='4.3.1'></a>
 ##### prechecks.yml
-- Trong file `prechecks.yml`: 
+- Trong file `precheck.yml`: 
 	- `name: Get container facts`: thực hiện đọc các khai báo của module `kolla_container_facts`
 	- `name: Checking free port for MariaDB`: Check `địa chỉ api` và `port 3306` xem có ở trạng thái stopped không bị sử dụng khi mà task `name: Get container facts` không được định nghĩa (thực thi)
 	- `name: Checking free port for MariaDB WSREP`: Check `địa chỉ api` và  `port 4567` xem có ở trạng thái stopped không bị sử dụng khi mà task `name: Get container facts` không được định nghĩa (thực thi)
@@ -173,6 +183,9 @@
 #### 4.5 `kolla-action=deploy`
 - khi thực hiện cùng với thông số kolla-action=prechecks  thì sẽ chạy tasks `deploy.yml` đầu tiên
 - Trong task `deploy.yml` này sẽ dẫn đến rất nhiều các tasks khác để thực thi như sau đây
+
+    ![ima](ima/kolla-mariadb5.png)
+
 <a name='4.5.2'></a>
 ##### config.yml
 - Trong task `config.yml` gồm:
@@ -195,7 +208,7 @@
 <a name='4.5.3'></a>
 ##### register.yml 
 - Trong task `register.yml` gồm:
-	- `- name: Creating the Mariabackup database`:
+	- `- name: Creating the Mariabackup database`: 
 			
 		- Sử dụng module do kolla-Ansible cung cấp `kolla_toolbox` để sử dụng các module của ansible 
 		- Ở đây `kolla_toolbox` sử dụng module `mysql_db` của ansible để  tạo Database
@@ -210,7 +223,51 @@
 - Trong task `mariadb_backup.yml` gồm :
 	- `name: Taking {{ mariadb_backup_type }} database backup via Mariabackup`:
 		- Ở mặc định {{ mariadb_backup_type }} có giá trị `full` 
-		- ..................
+		 ..................
 		
 		...
+<a name='4.7'></a>
 		
+#### 4.7 `kolla-action=deploy-containers`
+- khi thực hiện cùng với thông số kolla-action=deploy-containers  thì sẽ chạy tasks `deploy-containers.yml` đầu tiên
+<a name='4.7.2'></a>
+##### deploy-containers.yml
+- Trong task  `check-containers.yml` gồm:
+	- `name: Check mariadb containers` : task này sẽ thực hiện check containers được tạo bởi module kolla-docker.
+<a name='4.7.3'></a>
+##### lookup_cluster.yml
+- Trong task `lookup_cluster.yml`:
+	- `name: Create MariaDB volume`: thực hiện tạo volume cho mariadb trong container bằng module kolla-docker.
+	- `name: Divide hosts by their MariaDB volume availability`:
+	
+	..............
+<a name='4.8'></a>
+#### 4.8 `kolla-action=reconfigure`
+- Khi thực hiện action=reconfigure sẽ thực hiện chạy task reconfigure.yml
+- task này có nội dung:
+```
+---
+- include_tasks: deploy.yml
+```
+- Nên sẽ thực hiện giống với action = deploy 
+
+<a name='4.9'></a>
+#### 4.9 `kolla-action=stop`
+##### stop.yml
+- Nội dung task: 
+```
+---
+- import_role:
+    role: service-stop
+  vars:
+    project_services: "{{ mariadb_services }}"
+    service_name: "{{ project_name }}"
+```
+
+Ở đây sẽ thực hiện chạy role `service-stop` và role đó sẽ chạy cùng 2 biến được gán vào role đó : `project_services` , `service_name`
+
+<a name='4.10'></a>
+#### 4.10 `kolla-action=upgrade`
+- Chạy task `upgrade.yml`, trong task này đầu tiên sẽ thực hiện chạy task `deploy.yml`
+- Sau đó chạy task `name: Run upgrade in MariaDB container` với mục đích chạy upgrade bên trong container.
+
