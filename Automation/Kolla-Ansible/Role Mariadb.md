@@ -97,8 +97,10 @@
 	```
 	- `inventory_hostname`: Là các cấu hình trong file inventory
 	- `{% for host in groups['mariadb'] %}`:  Sẽ liệt kê tất cả các host trong group `[mariadb]`
-	- `hostvars[host]['ansible_hostname']`:  `hostvars` sẽ được sử dụng khi bạn muốn mang một biến của host khác, giá trị fact của host khác về sử dụng. tên host [
----
+	- `hostvars[host]['ansible_hostname']`:  `hostvars` sẽ được sử dụng khi bạn muốn mang một biến của host khác, giá trị fact của host khác về sử dụng.
+		-  tên [host]: localhost,192.168.20.37,..
+		- `ansible_hostname`: tất cả các host được ansible thu thập được bằng ssh bằng task gather_fact
+
 <a name='2'></a>
 ## **Handlers: Mariadb**
 - *Đây là nơi thực hiện khai báo các tác vụ chờ được gọi bằng tasks trong các file trong thư mục `/tasks/...yml`*
