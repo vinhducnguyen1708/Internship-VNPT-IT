@@ -109,7 +109,7 @@ IPADDR=192.168.20.29
 NETMASK=255.255.255.0
 EOF
 ```
-
+- restart máy nếu chưa nhận card mạng
 
 ## Cài đặt các gói phần mềm cần thiết cho các node
 
@@ -142,7 +142,7 @@ EOF
 	```
 	- Chọn IP VIP:
 	```
-	sed -i 's/#kolla_internal_vip_address: "10.10.10.254"/kolla_internal_vip_address: "192.168.20.202"/g' /etc/kolla/globals.yml
+	sed -i 's/#kolla_internal_vip_address: "10.10.10.254"/kolla_internal_vip_address: "192.168.30.202"/g' /etc/kolla/globals.yml
 	```
 	- Chỉ định card cấp network:
 	```sh
