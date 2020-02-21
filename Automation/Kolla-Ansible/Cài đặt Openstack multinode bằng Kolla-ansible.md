@@ -20,18 +20,27 @@ hostnamectl set-hostname deployment
 ```
 - Cấu hình network:
 ```
-echo "Setup IP  eth1"
-nmcli c modify eth1 ipv4.addresses 192.168.30.198/24
-nmcli c modify eth1 ipv4.gateway 192.168.30.1
-nmcli c modify eth1 ipv4.method manual
-nmcli con mod eth1 connection.autoconnect yes
+cat << EOF > /etc/sysconfig/network-scripts/ifcfg-eth1
+TYPE=Ethernet
+BOOTPROTO=static
+NAME=eth1
+DEVICE=eth1
+ONBOOT=yes
+IPADDR=192.168.30.198
+NETMASK=255.255.255.0
+GATEWAY=192.168.30.1
+DNS1=8.8.8.8
+EOF
 
-echo "Setup IP  eth0"
-nmcli c modify eth0 ipv4.addresses 192.168.20.37/24
-nmcli c modify eth0 ipv4.gateway 192.168.20.1
-nmcli c modify eth0 ipv4.dns 8.8.8.8
-nmcli c modify eth0 ipv4.method manual
-nmcli con mod eth0 connection.autoconnect yes
+cat << EOF > /etc/sysconfig/network-scripts/ifcfg-eth0
+TYPE=Ethernet
+BOOTPROTO=static
+NAME=eth0
+DEVICE=eth0
+ONBOOT=yes
+IPADDR=192.168.20.37
+NETMASK=255.255.255.0
+EOF
 
 ```
 - Cấu hình file hosts:
@@ -47,24 +56,29 @@ hostnamectl set-hostname controller
 
 - Cấu hình network:
 ```
-echo "Setup IP  eth1"
-nmcli c modify eth1 ipv4.addresses 192.168.30.199/24
-nmcli c modify eth1 ipv4.gateway 192.168.30.1
-nmcli c modify eth0 ipv4.dns 8.8.8.8
-nmcli c modify eth1 ipv4.method manual
-nmcli con mod eth1 connection.autoconnect yes
+cat << EOF > /etc/sysconfig/network-scripts/ifcfg-eth1
+TYPE=Ethernet
+BOOTPROTO=static
+NAME=eth1
+DEVICE=eth1
+ONBOOT=yes
+IPADDR=192.168.30.199
+NETMASK=255.255.255.0
+GATEWAY=192.168.30.1
+DNS1=8.8.8.8
+EOF
 
-echo "Setup IP  eth0"
-nmcli c modify eth0 ipv4.addresses 192.168.20.39/24
-nmcli c modify eth0 ipv4.gateway 192.168.20.1
-nmcli c modify eth0 ipv4.method manual
-nmcli con mod eth0 connection.autoconnect yes
+cat << EOF > /etc/sysconfig/network-scripts/ifcfg-eth0
+TYPE=Ethernet
+BOOTPROTO=static
+NAME=eth0
+DEVICE=eth0
+ONBOOT=yes
+IPADDR=192.168.20.199
+NETMASK=255.255.255.0
+EOF
 ```
-- Cấu hình file hosts:
-```
-cat /etc/hosts
-192.168.30.198 deployment
-```
+
 2.2 **Node compute1**:
 - Cấu hình hostname:
 ```
@@ -73,24 +87,29 @@ hostnamectl set-hostname compute1
 
 - Cấu hình network:
 ```
-echo "Setup IP  eth1"
-nmcli c modify eth1 ipv4.addresses 192.168.30.201/24
-nmcli c modify eth1 ipv4.gateway 192.168.30.1
-nmcli c modify eth0 ipv4.dns 8.8.8.8
-nmcli c modify eth1 ipv4.method manual
-nmcli con mod eth1 connection.autoconnect yes
+cat << EOF > /etc/sysconfig/network-scripts/ifcfg-eth1
+TYPE=Ethernet
+BOOTPROTO=static
+NAME=eth1
+DEVICE=eth1
+ONBOOT=yes
+IPADDR=192.168.30.201
+NETMASK=255.255.255.0
+GATEWAY=192.168.30.1
+DNS1=8.8.8.8
+EOF
 
-echo "Setup IP  eth0"
-nmcli c modify eth0 ipv4.addresses 192.168.20.29/24
-nmcli c modify eth0 ipv4.gateway 192.168.20.1
-nmcli c modify eth0 ipv4.method manual
-nmcli con mod eth0 connection.autoconnect yes
+cat << EOF > /etc/sysconfig/network-scripts/ifcfg-eth0
+TYPE=Ethernet
+BOOTPROTO=static
+NAME=eth0
+DEVICE=eth0
+ONBOOT=yes
+IPADDR=192.168.20.29
+NETMASK=255.255.255.0
+EOF
 ```
-- Cấu hình file hosts:
-```
-cat /etc/hosts
-192.168.30.198 deployment
-```
+
 
 ## Cài đặt các gói phần mềm cần thiết cho các node
 
@@ -123,7 +142,7 @@ cat /etc/hosts
 	```
 	- Chọn IP VIP:
 	```
-	sed -i 's/#kolla_internal_vip_address: "10.10.10.254"/kolla_internal_vip_address: "192.168.30.202"/g' /etc/kolla/globals.yml
+	sed -i 's/#kolla_internal_vip_address: "10.10.10.254"/kolla_internal_vip_address: "192.168.20.202"/g' /etc/kolla/globals.yml
 	```
 	- Chỉ định card cấp network:
 	```sh
