@@ -271,7 +271,11 @@ cat /etc/hosts
 	systemctl enable docker
 	systemctl restart docker
 	```
-
+2. Cài đặt pip
+	```
+	pip install --upgrade pip
+	````
+	- pip version : 20.0.2
 
 ## Thực hiện chạy Kolla-Ansible
 - Thực hiện cài đặt môi trường
