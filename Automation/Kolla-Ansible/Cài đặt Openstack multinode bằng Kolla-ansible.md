@@ -247,9 +247,9 @@ cat /etc/hosts
 	```
 
 
-### *Thực hiện trên node controller*
+### *Thực hiện cài đặt docker trên node controller, compute1*
 
-1. Cài đặt và cấu hình docker
+1. Cài đặt và cấu hình docker trên các node target
 	- Cài đặt docker
 	```sh
 	yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
