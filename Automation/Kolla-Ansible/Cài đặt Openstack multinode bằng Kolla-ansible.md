@@ -204,7 +204,7 @@ cat /etc/hosts
 	sudo yum -y update
 	sudo yum -y install docker-distribution
 	systemctl start docker-distribution
-	systemctl start docker-distribution
+	systemctl enable docker-distribution
 	```
 	- Cấu hình trong file `/etc/docker/daemon.json`
 	```sh
