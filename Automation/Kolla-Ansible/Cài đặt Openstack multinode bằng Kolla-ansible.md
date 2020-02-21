@@ -131,7 +131,7 @@ cat /etc/hosts
 	```
 	- Chỉ định card cho neutron cấp network cho VM
 	```sh
-	sed -i 's/#neutron_external_interface: "eth1"/neutron_external_interface: "eth1"/g' /etc/kolla/globals.yml
+	sed -i 's/#neutron_external_interface: "eth1"/neutron_external_interface: "eth0"/g' /etc/kolla/globals.yml
 	```
 	- Khai báo docker registry để các node khác có thể pull image về.
 	```sh
