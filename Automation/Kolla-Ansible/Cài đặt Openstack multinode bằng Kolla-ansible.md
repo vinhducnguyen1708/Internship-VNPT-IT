@@ -210,7 +210,7 @@ cat /etc/hosts
 	```sh
 	cat /etc/docker/daemon.json
 	{
- 	"insecure-registries" : ["myregistry.local:5000"]
+ 	"insecure-registries" : ["192.168.30.198:5000"]
  	}
 	```
 	- Khởi động lại docker 
