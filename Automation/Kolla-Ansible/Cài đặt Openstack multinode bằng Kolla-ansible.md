@@ -144,11 +144,11 @@ EOF
 	```
 	sed -i 's/#kolla_internal_vip_address: "10.10.10.254"/kolla_internal_vip_address: "192.168.30.202"/g' /etc/kolla/globals.yml
 	```
-	- Chỉ định card cấp network:
+	- Chỉ định card cho  cấp ip cho VM
 	```sh
 	sed -i 's/#network_interface: "eth0"/network_interface: "eth1"/g' /etc/kolla/globals.yml
 	```
-	- Chỉ định card cho neutron cấp network cho VM
+	- Chỉ định card đưa ip VM ra mạng ngoài
 	```sh
 	sed -i 's/#neutron_external_interface: "eth1"/neutron_external_interface: "eth0"/g' /etc/kolla/globals.yml
 	```
