@@ -227,10 +227,11 @@ EOF
 	```
 	- Cấu hình trong file `/etc/docker/daemon.json`
 	```sh
-	cat /etc/docker/daemon.json
+	cat << EOF > /etc/docker/daemon.json
 	{
  	"insecure-registries" : ["192.168.30.198:5000"]
  	}
+	EOF
 	```
 	- Khởi động lại docker 
 	```
@@ -267,8 +268,14 @@ EOF
 
 
 ### *Thực hiện cài đặt docker trên node controller, compute1*
+1. Cài đặt các gói phụ trợ
+```sh
+yum install -y epel-release
+yum update -y
 
-1. Cài đặt và cấu hình docker trên các node target
+yum install -y git wget gcc python-devel python-pip yum-utils byobu
+```
+2. Cài đặt và cấu hình docker trên các node target
 	- Cài đặt docker
 	```sh
 	yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
@@ -290,36 +297,73 @@ EOF
 	systemctl enable docker
 	systemctl restart docker
 	```
-2. Cài đặt pip
+3. Cài đặt pip cùng phiên bản với node deploy để cài đặt docker SDK cho python
 	```
 	pip install --upgrade pip
 	````
 	- pip version : 20.0.2
 
 ## Thực hiện chạy Kolla-Ansible
-- Thực hiện cài đặt môi trường
-```
-kolla-ansible -i multinode bootstrap-servers
-```
-- Kiểm tra:
-```
-kolla-ansible -i multinode prechecks
-```
-- Thực hiện pull image về:
-```
-kolla-ansible -i multinode pull
-```
-- Tiến hành cài đặt hệ thống Openstack:
-```
-kolla-ansible -i multinode deploy
-```
-
-- Sau khi thực hiện xong Cài đặt môi trường 
+- Thực hiện trên node deployment
+	- Thực hiện cài đặt môi trường
+	```
+	kolla-ansible -i multinode bootstrap-servers
+	```
+	- Kiểm tra:
+	```
+	kolla-ansible -i multinode prechecks
+	```
+	- Thực hiện pull image về:
+	```
+	kolla-ansible -i multinode pull
+	```
+	- Tiến hành cài đặt hệ thống Openstack:
+	```
+	kolla-ansible -i multinode deploy
+	```
 	- Thực hiện chạy lệnh này để tạo ra file `/etc/kolla/admin-openrc.sh` sử dụng tương tác với openstack bằng openstack client
 	```
-	kolla-ansible -i all-in-one post-deploy
+	kolla-ansible -i multinode post-deploy
 	```
 	- Cài đặt virtualen và tạo một virtualen có tên là venv
+	```
+	pip install virtualenv
+	virtualenv venv
+	```
+	- Kich hoạt virtualen (chuyển vào virtualen) để thực hiện cài đặt gói, các package python được cài đặt trong này sẽ được cô lập hoàn toàn với host bên ngoài. Lưu ý là có dấu . trong lệnh chạy.
+	```
+	. venv/bin/activate
+	```
+	- Cài đặt gói openstack-client để thực thi các lệnh của OpenStack
+	```
+	pip install python-openstackclient
+	```
+	- Thực thi biến môi trường
+	```
+	source /etc/kolla/admin-openrc.sh
+	```
+	- Thực hiện lệnh kiểm tra hoạt động 
+	```
+	openstack token issue
+	openstack project list
+	```
+	- Download image cirros để test 
+	```
+	wget http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
+
+	openstack image create "cirros" \
+	--file cirros-0.3.4-x86_64-disk.img \
+	--disk-format qcow2 --container-format bare \
+	--public
+	```
+	- Trong file `/etc/kolla/neutron-openvswitch-agent/ml2_conf.ini` cấu hình được khai báo `flat_networks = physnet1` nên khi tạo network flat cần lưu ý
+
+
+
+
+
+- Thực hiện trên node `controller`
+	- Cài đặt virtualen và tạo một virtualen có tên là venv trên node `controller`
 	```
 	pip install virtualenv
 	virtualenv venv
@@ -329,28 +373,20 @@ kolla-ansible -i multinode deploy
 	. venv/bin/activate
 	```
 	- Thực hiện cài đặt openstack client trong virtualen. Lúc ở trong virtualen sẽ có dòng sau ở đầu (venv)
-	```
+	```sh
 	pip install python-openstackclient python-glanceclient python-neutronclient
 	```
-- Thực hiện copy file `/etc/kolla/admin-openrc.sh` sang node controller
-- Thực hiện import biến môi trường để sử dụng tập lệnh openstack client
-```
-source /etc/kolla/admin-openrc.sh
-```
-- Thực hiện kiểm tra OpenStack đã hoạt động hay chưa
-```
-openstack token issue
-```
-- Download image cirros để test 
-```
-wget http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
 
-openstack image create "cirros" \
-  --file cirros-0.3.4-x86_64-disk.img \
-  --disk-format qcow2 --container-format bare \
-  --public
-  ```
-- Trong file `/etc/kolla/neutron-openvswitch-agent/ml2_conf.ini` cấu hình được khai báo `flat_networks = physnet1` nên khi tạo network flat cần lưu ý
+	- Thực hiện import biến môi trường để sử dụng tập lệnh openstack client
+	```
+	source admin-openrc.sh
+	```
+	- Thực hiện kiểm tra OpenStack đã hoạt động hay chưa
+	```
+	 nova service-list
+     neutron agent-list
+	```
+
 
 ---
 # Tham Khảo
