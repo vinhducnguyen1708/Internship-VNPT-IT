@@ -325,22 +325,30 @@ yum install -y git wget gcc python-devel python-pip yum-utils byobu
 	```
 	kolla-ansible -i multinode post-deploy
 	```
-	- Cài đặt virtualen và tạo một virtualen có tên là venv
+	- Thực hiện copy file vừa tạo ra sang node `controller`
+	```sh
+	scp /etc/kolla/admin-openrc.sh root@192.168.30.199:/root/
+	```
+*(Lưu ý những bước cài đặt openstack client phải thực hiện ở node controller, tôi chưa hiểu sao khi cài đặt openstack client ở node deployment thì node deployment sẽ thực hiện được các lệnh openstack điều khiển tương tác với cụm openstack luôn :)) )*
+
+- Thực hiện  trên node `controller`
+	- Cài đặt virtualen và tạo một virtualen có tên là venv trên node `controller`
 	```
 	pip install virtualenv
 	virtualenv venv
 	```
-	- Kich hoạt virtualen (chuyển vào virtualen) để thực hiện cài đặt gói, các package python được cài đặt trong này sẽ được cô lập hoàn toàn với host bên ngoài. Lưu ý là có dấu . trong lệnh chạy.
+	- Kich hoạt virtualen (chuyển vào virtualen) để thực hiện cài đặt gói
 	```
 	. venv/bin/activate
 	```
-	- Cài đặt gói openstack-client để thực thi các lệnh của OpenStack
-	```
+	- Thực hiện cài đặt openstack client trong virtualen. Lúc ở trong virtualen sẽ có dòng sau ở đầu (venv)
+	```sh
 	pip install python-openstackclient
 	```
-	- Thực thi biến môi trường
+
+	- Thực hiện import biến môi trường để sử dụng tập lệnh openstack client
 	```
-	source /etc/kolla/admin-openrc.sh
+	source admin-openrc.sh
 	```
 	- Thực hiện lệnh kiểm tra hoạt động 
 	```
@@ -358,34 +366,6 @@ yum install -y git wget gcc python-devel python-pip yum-utils byobu
 	```
 	- Trong file `/etc/kolla/neutron-openvswitch-agent/ml2_conf.ini` cấu hình được khai báo `flat_networks = physnet1` nên khi tạo network flat cần lưu ý
 
-
-
-
-
-- Thực hiện trên node `controller`
-	- Cài đặt virtualen và tạo một virtualen có tên là venv trên node `controller`
-	```
-	pip install virtualenv
-	virtualenv venv
-	```
-	- Kich hoạt virtualen (chuyển vào virtualen) để thực hiện cài đặt gói
-	```
-	. venv/bin/activate
-	```
-	- Thực hiện cài đặt openstack client trong virtualen. Lúc ở trong virtualen sẽ có dòng sau ở đầu (venv)
-	```sh
-	pip install python-openstackclient python-glanceclient python-neutronclient
-	```
-
-	- Thực hiện import biến môi trường để sử dụng tập lệnh openstack client
-	```
-	source admin-openrc.sh
-	```
-	- Thực hiện kiểm tra OpenStack đã hoạt động hay chưa
-	```
-	 nova service-list
-     neutron agent-list
-	```
 
 
 ---
