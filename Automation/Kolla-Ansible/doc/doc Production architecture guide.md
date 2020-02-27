@@ -23,4 +23,5 @@
 - `tunnel_interface`: Đây là interface được Neutron sử dụng để kết nối vm-to-vm qua đường tunnel networks(VXLAN, GRE).
 - `neutron_external_interface`: Interface này đươc yêu cầu bởi Neutron. Neutron sẽ đặt brigde `br-ex` lên interface này . Và sẽ được sử dụng cho Flat network cũng như Vlan network
 - `dns_interface`: Interface này yêu cầu bởi Designate và Bind9.
-- `swift_storage_interface`: Interface này đưcọ sử dụng bởi Swift cho
+- `swift_storage_interface`: được sử dụng bởi Swift cho storage truy cập traffic.
+
