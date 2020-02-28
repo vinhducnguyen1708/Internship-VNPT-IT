@@ -5,6 +5,9 @@
 - [Cấu hình network, hostname](#2)
 - [Thực hiện các phần mềm hỗ trợ trên các node](#3)
 	- [Deployment](#4)
+		- [Cài đặt kolla-ansible](#4.1)
+		- [Build Image](#4.2)
+		- [Cấu hình các khai báo trong Kolla-Ansible](#4.3)
 	- [Các node target](#5)
 - [Thực hiện deploy bằng Kolla](#6)
 - [ Thực hiện kiểm tra hệ thống sau cài đặt](#7)
@@ -304,8 +307,8 @@ EOF
 ### Deployment
 
 *( Ở đây thực hiện cài đặt Kolla-ansible để điều khiển các node target)*
-
-1. Cài đặt Kolla-ansible
+<a name='4.1'></a>
+#### 1. Cài đặt Kolla-ansible
 - B1: Thực hiện update HĐH:
 ```
 yum update -y
@@ -315,7 +318,7 @@ yum update -y
 yum install -y epel-release
 yum update -y
 yum install python-devel libffi-devel gcc openssl-devel libselinux-python git wget byobu yum-utils python-setuptools vim -y
-	```
+```
 - B3: cài đặt pip. Cập nhật bản pip mới nhất. Do kolla yêu cầu bản ansible từ 2.6 trở lên.
 ```sh
 easy_install pip
@@ -372,8 +375,8 @@ EOF
 ```sh
 kolla-genpwd
 ```
-	
-2. Build image và cài đặt cấu hình docker registry local
+<a name='4.2'></a>
+#### 2. Build image và cài đặt cấu hình docker registry local
 - B1: Vì chưa pull được image từ docker hub về nên thực hiện build images, quá trình này diễn ra khá lâu nên sử dụng `byobu` để tạo ra session khác tránh việc mất phiên kết nối trong quá trình build
 ```
 byobu
@@ -436,8 +439,8 @@ systemctl restart docker
 	192.168.30.198:5000/kolla/centos-binary-neutron-server-ovn                  9.0.2               52edf24651fc        7 days ago          1.11GB
 	192.168.30.198:5000/kolla/centos-binary-tacker-server                       9.0.2               4698a2f2649e        7 days ago          1.1GB
 	```
-	
-3. Thực hiện chỉnh sửa các thông số khai báo của Kolla
+<a name='4.3'></a>
+#### 3. Thực hiện chỉnh sửa các thông số khai báo của Kolla
 - B1: Thực hiện điền các thông số cho file inventory `vi /root/multinode` *(Tại đây sẽ khai báo các node target cho Ansible thực thi)*
 ```sh
 vi /root/multinode
