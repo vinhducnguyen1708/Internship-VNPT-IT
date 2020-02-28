@@ -518,7 +518,18 @@ enable_memcached: "yes"
 enable_mariadb: "yes"
 enable_mariabackup: "yes"
 ```	
-
+- B3: Copy ssh-key để node deployment giao tiếp với các máy khác.
+```
+ssh-copy-id root@192.168.20.33
+ssh-copy-id root@192.168.20.34
+ssh-copy-id root@192.168.20.35
+ssh-copy-id root@192.168.20.38
+ssh-copy-id root@192.168.20.40
+```
+- B4: Kiểm tra kết nối bằng lệnh
+```
+ansible -i multinode all -m ping
+```
 <a name='5'></a>
 ### Các node target
 1. Cài đặt các gói phụ trợ
