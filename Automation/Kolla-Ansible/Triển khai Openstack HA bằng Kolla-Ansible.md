@@ -505,6 +505,17 @@ tunnel_interface: "eth1"
 neutron_external_interface: "eth2"
 # Các khai báo cài đặt các service
 enable_heat: "no"
+enable_haproxy: "yes"
+enable_keystone: "yes"
+enable_glance: "yes"
+enable_placement: "yes"
+enable_nova: "yes"
+enable_neutron: "yes"
+enable_horizon: "yes"
+neutron_plugin_agent: "openvswitch"
+enable_rabbitmq: "yes"
+enable_memcached: "yes"
+enable_mariadb: "yes"
 enable_mariabackup: "yes"
 ```	
 
