@@ -330,7 +330,7 @@ pip install ansible==2.6.13
 pip install kolla-ansible==9.0.1
 ```
 
-*(Kết quả các gói - Kết quả các gói)
+*(Kết quả các gói)*
 - Ansible: --version 2.6.13 
 	- `pip show ansible`
 - Kolla-Ansible: --version 9.0.1
