@@ -1,5 +1,15 @@
 # Triển khai Openstack multinode HA bằng Kolla-ansible
 
+# Mục lục
+- [Mô hình triển khai](#1)
+- [Cấu hình network, hostname](#2)
+- [Thực hiện các phần mềm hỗ trợ trên các node](#3)
+	- [Deployment](#4)
+	- [Các node target](#5)
+- [Thực hiện deploy bằng Kolla](#6)
+- [ Thực hiện kiểm tra hệ thống sau cài đặt](#7)
+
+<a name='1'></a>
 ## Mô hình triển khai
 - Ở đây tôi sử dụng 4 card mạng cho mỗi node
 	- eth0: Làm Management network quản lý giao tiếp API 
@@ -10,6 +20,8 @@
 
 - IP Plan
 ![ima](ima/ipplanHAOPS.png)
+
+<a name='2'></a>
 ## Cấu hình network, hostname
 
 - Node Deployment
@@ -286,9 +298,9 @@ IPADDR=192.168.40.35
 NETMASK=255.255.255.0
 EOF
 ```
-
+<a name='3'></a>
 ## Thực hiện cài đặt các phần mềm hỗ trợ trên các node
-
+<a name='4'></a>
 ### Deployment
 
 *( Ở đây thực hiện cài đặt Kolla-ansible để điều khiển các node target)*
@@ -493,7 +505,7 @@ enable_heat: "no"
 enable_mariabackup: "yes"
 ```	
 
-
+<a name='5'></a>
 ### Các node target
 1. Cài đặt các gói phụ trợ
 ```sh
@@ -530,7 +542,7 @@ pip install --upgrade pip
 - pip version : 20.0.2
 
 	
-	
+<a name='6'></a>
 ## Thực hiện dùng Kolla-Ansible deploy Openstack	
 
 *(Thực hiện trên node deployment)*
@@ -559,9 +571,9 @@ kolla-ansible -i multinode post-deploy
 scp /etc/kolla/admin-openrc.sh root@192.168.20.38:/root/
 ...
 ```
-
+<a name='7'></a>
 ## Thực hiện kiểm tra hệ thống sau khi cài đặt 
-
+<a name='8'></a>
 ### Thực hiện các node targer ( ví dụ ở đây là controller1)
 - B1: Cài đặt virtualen
 ```sh
