@@ -49,5 +49,6 @@ Kolla là một project của Openstack thực hiện build các Images trong pr
     - `network_interface:` : Chọn interface đóng vai tròn `api_interface` (mặc định) chi tiết xem [tại đây](https://github.com/vinhducnguyen1708/Internship-VNPT-IT/blob/master/Automation/Kolla-Ansible/doc/doc%20Production%20architecture%20guide.md)
     - `neutron_external_interface:` Chọn Interface làm external network để các Vm sử dụng đi ra ngoài Internet
     - `keepalived_virtual_router_id:` : Tránh việc bị Trùng VRID do sử dụng giao thức VRRP ta khai báo VRID tại đây có giá trị <0-255>
+  - Một vài cách customise phức tạp hơn [tại đây](https://github.com/vinhducnguyen1708/Internship-VNPT-IT/tree/master/Automation/Kolla-Ansible/doc)
 ### 2.4 Cài đặt Kolla-Ansible 
 - [Cài đặt Kolla-Ansible](https://github.com/vinhducnguyen1708/Internship-VNPT-IT/blob/master/Automation/Kolla-Ansible/C%C3%A0i%20%C4%91%E1%BA%B7t%20Kolla-Ansible.md)
