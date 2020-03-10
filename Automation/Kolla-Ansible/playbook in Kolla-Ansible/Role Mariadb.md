@@ -69,7 +69,7 @@
     
     - Đoạn đầu Ta nhìn thấy như 1 cây thư mục @@ bởi vì các biến này sẽ được gọi bằng cách gọi đến biến `{{ mariadb_services }}` nhưng thêm tham số khai báo service con như đây :
 
-    ![ima](ima/kolla-mariadb2.png)
+    ![ima](../ima/kolla-mariadb2.png)
 
     - Phía dưới là các khai báo biến thông thường và lấy từ file `/group_vars/all.yml` như là các biến `{{ default_extra_volumes }}`, `{{ node_config_directory }}`, `{{ container_config_directory }}` 
     - Nếu bạn thắc mắc các dấu "-" kia và khi khai báo biến `volumes: "{{ mariadb_default_volumes + mariadb_extra_volumes }}"` sẽ có kết quả như thế nào.
@@ -112,7 +112,7 @@
     - Đây là module được sử dụng trong mục `handlers` nhằm khai báo các task chờ để sau đó gọi bằng `notify` trong tasks chính.
 - Khi Kolla-Ansible sử dụng: 
 
-![ima](ima/kolla-mariadb1.png)
+![ima](../ima/kolla-mariadb1.png)
 
 `2. wait_for`,`delay`,`until`,`retries`
 
@@ -151,7 +151,7 @@
 
 <a name='4.1'></a>
 #### 4.2 `kolla-action=bootstrap`
-![ima](ima/kolla-mariadb4.png)
+![ima](../ima/kolla-mariadb4.png)
 
 - khi thực hiện cùng với thông số kolla-action=prechecks  thì sẽ chạy tasks `prechecks.yml`
 
@@ -160,7 +160,7 @@
 #### 4.3 `kolla-action=precheck`
 - khi thực hiện cùng với thông số kolla-action=prechecks  thì sẽ chạy tasks `prechecks.yml` đầu tiên
 
-    ![ima](ima/kolla-mariadb3.png)
+    ![ima](../ima/kolla-mariadb3.png)
 
 <a name='4.3.1'></a>
 ##### prechecks.yml
