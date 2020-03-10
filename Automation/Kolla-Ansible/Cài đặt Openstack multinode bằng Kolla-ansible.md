@@ -220,6 +220,17 @@ EOF
 	```
 
 - Hiện tại tôi chưa biết cách để pull trực tiếp image build có sẵn tên là `kolla/centos-binary-*:9.0.2` cho các node khác pull về, vì khi khai báo docker_registry như trên thì các node sẽ tìm image có tên là `192.168.30.198:5000/kolla/centos-binary-*:9.0.2` nên trên node deployment này tôi thực hiện đổi tên và push image về local để các node khác có thể pull được image
+	- Cài đặt docker
+	```sh
+	yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+	yum install -y docker-ce
+	```
+	- Khởi động lại Docker
+	```sh
+	systemctl daemon-reload
+	systemctl enable docker
+	systemctl restart docker
+	```
 	- Cài đặt docker distribution
 	```sh
 	sudo yum -y update
@@ -227,18 +238,34 @@ EOF
 	systemctl start docker-distribution
 	systemctl enable docker-distribution
 	```
-	- Cấu hình trong file `/etc/docker/daemon.json`
+	- Cấu hình chỉnh định port registry tại file `/etc/docker-distribution/registry/config.yml`
 	```sh
-	cat << EOF > /etc/docker/daemon.json
-	{
- 	"insecure-registries" : ["192.168.30.198:5000"]
- 	}
+	version: 0.1
+	log:
+	  fields:
+		service: registry
+	storage:
+		cache:
+			layerinfo: inmemory
+		filesystem:
+			rootdirectory: /var/lib/registry
+	http:
+		addr: :5000
+	```
+	- Cấu hình docker
+	```sh
+	mkdir /etc/systemd/system/docker.service.d
+	tee /etc/systemd/system/docker.service.d/kolla.conf << 'EOF'
+	[Service]
+	MountFlags=shared
+	ExecStart=/usr/bin/dockerd --insecure-registry 192.168.30.198:5000 --log-opt max-file=5 --log-opt max-size=50m
 	EOF
 	```
 	- Khởi động lại docker 
 	```
 	systemctl restart docker
 	```
+	
 
 	- Việc đổi tên repo và push khá mất thời gian nên tôi thực hiện viết 1 đoạn script
 		- Nội dung đoạn script:
@@ -265,46 +292,8 @@ EOF
 	192.168.30.198:5000/kolla/centos-binary-ironic-conductor                    9.0.2               be647def7f18        7 days ago          1.22GB
 	192.168.30.198:5000/kolla/centos-binary-neutron-server-ovn                  9.0.2               52edf24651fc        7 days ago          1.11GB
 	192.168.30.198:5000/kolla/centos-binary-tacker-server                       9.0.2               4698a2f2649e        7 days ago          1.1GB
-
 	```
-
-
-### *Thực hiện cài đặt docker trên node controller, compute1*
-1. Cài đặt các gói phụ trợ
-```sh
-yum install -y epel-release
-yum update -y
-
-yum install -y git wget gcc python-devel python-pip yum-utils byobu
-```
-2. Cài đặt và cấu hình docker trên các node target
-	- Cài đặt docker
-	```sh
-	yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-
-	yum install -y docker-ce
-	```
-	- Cấu hình docker
-	```sh
-	mkdir /etc/systemd/system/docker.service.d
-
-	tee /etc/systemd/system/docker.service.d/kolla.conf << 'EOF'
-	[Service]
-	MountFlags=shared
-	EOF
-	```
-	- Khởi động lại docker
-	```
-	systemctl daemon-reload
-	systemctl enable docker
-	systemctl restart docker
-	```
-3. Cài đặt pip cùng phiên bản với node deploy để cài đặt docker SDK cho python
-	```
-	pip install --upgrade pip
-	````
-	- pip version : 20.0.2
-
+***Lưu ý: Nếu pull được images từ Docker Hub về thì trong file `/etc/kolla/globals` Cấu hình thông số 	openstack_release: "train" thì thực hiện lệnh kolla -i <inventory> pull có thể pull được images về luôn mà không cần build***
 ## Thực hiện chạy Kolla-Ansible
 - Thực hiện trên node deployment
 	- Thực hiện cài đặt môi trường

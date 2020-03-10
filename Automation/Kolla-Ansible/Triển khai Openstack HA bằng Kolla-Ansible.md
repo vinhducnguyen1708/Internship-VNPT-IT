@@ -377,11 +377,27 @@ kolla-genpwd
 ```
 <a name='4.2'></a>
 #### 2. Build image và cài đặt cấu hình docker registry local
+
+***Lưu ý: Nếu pull được images từ Docker Hub về thì trong file `/etc/kolla/globals` Cấu hình thông số 	openstack_release: "train" thì thực hiện lệnh kolla -i <inventory> pull có thể pull được images về luôn mà không cần build***
+
 - B1: Vì chưa pull được image từ docker hub về nên thực hiện build images, quá trình này diễn ra khá lâu nên sử dụng `byobu` để tạo ra session khác tránh việc mất phiên kết nối trong quá trình build
 ```
 byobu
 ```
-- B2: Thực hiện build Image
+- B2: Cài đặt Docker
+	- Cài đặt docker
+	```sh
+	yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+	yum install -y docker-ce
+	```
+	- Khởi động lại Docker
+	```sh
+	systemctl daemon-reload
+	systemctl enable docker
+	systemctl restart docker
+	```
+
+- B3: Thực hiện build Image
 ```sh
 git clone https://github.com/openstack/kolla.git
 cd kolla/
@@ -393,27 +409,29 @@ tox -e genconfig
 /root/kolla/.tox/genconfig/bin/kolla-build -b centos
 ```
 *Các image được build bằng tox sẽ có tag là `9.0.2`. Nên trong file /etc/kolla/globals.yml tôi phải thiết lập biến `openstack_release` thành `9.0.2`. Hiện tại tôi chưa biết cách để pull trực tiếp image build có sẵn tên là kolla/centos-binary-*:9.0.2 cho các node khác pull về, vì khi khai báo docker_registry như trên thì các node sẽ tìm image có tên là `192.168.30.198:5000/kolla/centos-binary-*:9.0.2` nên trên node deployment này tôi thực hiện đổi tên và push image về local để các node khác có thể pull được image*
-- B3: Cài đặt docker distribution
+- B4: Cài đặt docker distribution
 ```sh
 sudo yum -y update
 sudo yum -y install docker-distribution
 systemctl start docker-distribution
 systemctl enable docker-distribution
 ```
-- B4: Cấu hình trong file `/etc/docker/daemon.json`
-```sh
-cat << EOF > /etc/docker/daemon.json
-{
-"insecure-registries" : ["192.168.30.198:5000"]
-}
-EOF
-```
+- B5: Cấu hình Docker
+	- Cấu hình docker
+	```sh
+	mkdir /etc/systemd/system/docker.service.d
+	tee /etc/systemd/system/docker.service.d/kolla.conf << 'EOF'
+	[Service]
+	MountFlags=shared
+	ExecStart=/usr/bin/dockerd --insecure-registry 192.168.30.198:5000 --log-opt max-file=5 --log-opt max-size=50m
+	EOF
+	```
 
-- B5: Khởi động lại docker
+- B6: Khởi động lại docker
 ```
 systemctl restart docker
 ```
-- B6: Việc đổi tên repo và push khá mất thời gian nên tôi thực hiện viết 1 đoạn script
+- B7: Việc đổi tên repo và push khá mất thời gian nên tôi thực hiện viết 1 đoạn script
 	- Nội dung đoạn script:
 	```sh
 	#!/bin/bash
@@ -520,6 +538,7 @@ enable_mariabackup: "yes"
 ```	
 - B3: Copy ssh-key để node deployment giao tiếp với các máy khác.
 ```
+ssh-keygen
 ssh-copy-id root@192.168.20.33
 ssh-copy-id root@192.168.20.34
 ssh-copy-id root@192.168.20.35
@@ -530,41 +549,7 @@ ssh-copy-id root@192.168.20.40
 ```
 ansible -i multinode all -m ping
 ```
-<a name='5'></a>
-### Các node target
-1. Cài đặt các gói phụ trợ
-```sh
-yum install -y epel-release
-yum update -y
 
-yum install -y git wget gcc python-devel python-pip yum-utils byobu
-```
-2. Cài đặt và cấu hình docker trên các node target
-- Cài đặt docker
-```sh
-yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-yum install -y docker-ce
-```
-- Cấu hình docker
-```sh
-mkdir /etc/systemd/system/docker.service.d
-
-tee /etc/systemd/system/docker.service.d/kolla.conf << 'EOF'
-[Service]
-MountFlags=shared
-EOF
-```
-- Khởi động lại docker
-```
-systemctl daemon-reload
-systemctl enable docker
-systemctl restart docker
-```
-3. Cài đặt pip cùng phiên bản với node deploy để cài đặt docker SDK cho python
-```
-pip install --upgrade pip
-````
-- pip version : 20.0.2
 
 	
 <a name='6'></a>
