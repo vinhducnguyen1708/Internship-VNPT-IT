@@ -139,10 +139,8 @@ localhost       ansible_connection=local
 ---
 kolla_base_distro: "centos"
 kolla_install_type: "binary"
-openstack_release: "7.1.1"
+openstack_release: "rocky"
 kolla_internal_vip_address: "192.168.20.192"
-docker_registry: "192.168.20.190:4178"
-docker_registry_insecure: "yes"
 network_interface: "eth0"
 neutron_external_interface: "eth1"
 keepalived_virtual_router_id: "192"
