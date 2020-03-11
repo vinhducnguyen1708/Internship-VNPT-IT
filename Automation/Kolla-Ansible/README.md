@@ -52,4 +52,7 @@ Kolla là một project của Openstack thực hiện build các Images trong pr
   - Một vài cách customise phức tạp hơn [tại đây](https://github.com/vinhducnguyen1708/Internship-VNPT-IT/tree/master/Automation/Kolla-Ansible/doc)
 ### 2.4 Cài đặt Kolla-Ansible 
 - [Cài đặt Kolla-Ansible](https://github.com/vinhducnguyen1708/Internship-VNPT-IT/blob/master/Automation/Kolla-Ansible/C%C3%A0i%20%C4%91%E1%BA%B7t%20Kolla-Ansible.md)
+
 - Lưu ý: khi cài đặt với các phiên bản Openstack khác thấp hơn bản Train, bạn cần điều chỉnh phiên bản của Ansible. Ví dụ khi cài đặt phiên bản Openstack Rocky thì phiên bản Ansible yêu cầu là 2.7
+
+
