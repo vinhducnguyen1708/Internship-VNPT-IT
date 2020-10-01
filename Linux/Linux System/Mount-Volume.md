@@ -29,19 +29,16 @@ mount /dev/vdb /data
 
 ![ima](images/av12.png)
 
-- Có thể bạn đã thấy rằng việc Mount đã thành công nhưng nếu dừng lại ở bước này, khi bạn reboot lại máy, toàn bộ thư mục sẽ bị unmount.
+## Nếu bạn muốn các Volume không bị unmount sau khi reboot lại máy thì phải thực hiện cấu hình tại file `/etc/fstab` 
 
-![ima](images/av13.png)
 
-Vậy nên ta phải thực hiện cấu hình trong `/etc/fstab` 
-
-- Bước 5: Lấy uuid của volume
+- Bước 1: Lấy uuid của volume
 ```sh
 blkid
 ```
 ![ima](images/av14.png)
 
-- Bước 6: Cấu hình file `/etc/fstab` thêm vào dòng cuối
+- Bước 2: Cấu hình file `/etc/fstab` thêm vào dòng cuối
 ```sh
 [root@localhost data]# vim /etc/fstab
 ...
@@ -59,7 +56,7 @@ UUID=73e004bb-aa2e-4002-9696-9e1e6785089f /data  xfs defaults 0 0
 |Automatic Check| Cách thức kiểm tra filesystem của hệ thống trong quá trình booting, 1(sẽ mặc định check đầu tiên nếu là root filesystem), 2(nếu không phải root file system thì sẽ thực hiện check trong quá trình booting), 0 ( không cần checke file system)|
 
 
-- Bước 7: Thực hiện mount tất cả những gì đã khai báo trong file `/etc/fstab`
+- Bước 3: Thực hiện mount tất cả những gì đã khai báo trong file `/etc/fstab`
 ```sh
 mount -a
 ```
