@@ -29,8 +29,7 @@ mount /dev/vdb /data
 
 ![ima](images/av12.png)
 
-## Nếu bạn muốn các Volume không bị unmount sau khi reboot lại máy thì phải thực hiện cấu hình tại file `/etc/fstab` 
-
+- Đến đây việc mount volume đã thành công, nhưng để cấu hình máy ảo tự nhận volume sau khi reboot ta phải cấu hình file `/etc/fstab` 
 
 - Bước 1: Lấy uuid của volume
 ```sh
@@ -53,7 +52,7 @@ UUID=73e004bb-aa2e-4002-9696-9e1e6785089f /data  xfs defaults 0 0
 |File System | Khai báo type File system|
 |Mount Option| Tùy chọn Mount|
 |Dump Support| Đây là việc chỉ định tắt bật tiện ích tạo các bản filesystem backups 1(bật)  0 (tắt)|
-|Automatic Check| Cách thức kiểm tra filesystem của hệ thống trong quá trình booting, 1(sẽ mặc định check đầu tiên nếu là root filesystem), 2(nếu không phải root file system thì sẽ thực hiện check trong quá trình booting), 0 ( không cần checke file system)|
+|Automatic Check| Cách thức kiểm tra filesystem của hệ thống trong quá trình booting, 1(sẽ mặc định check đầu tiên nếu là root filesystem), 2(nếu không phải root file system thì sẽ thực hiện check trong quá trình booting), 0 ( không cần check file system)|
 
 
 - Bước 3: Thực hiện mount tất cả những gì đã khai báo trong file `/etc/fstab`
