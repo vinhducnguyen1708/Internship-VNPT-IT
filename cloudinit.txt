@@ -1,0 +1,63 @@
+#cloud-config
+user: root
+password: $webserverpass
+chpasswd: {expire: False}
+ssh_pwauth: True
+packages:
+- wget
+- openssh-server
+- php
+- apache2
+- libapache2-mod-php
+- php-cli
+- unzip
+- php-fpm
+- php-json
+- php-pdo
+- php-mysql
+- php-zip
+- php-gd
+- php-mbstring
+- php-curl
+- php-xml
+- php-pear
+- php-bcmath
+write_files:
+- path: /opt/000-default.conf
+  owner: root:root
+  content: |
+    <VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+    <Directory /var/www/html>
+        AllowOverride All
+    </Directory>
+    </VirtualHost> 
+- path: /opt/dir.conf
+  owner: root:root
+  content: |
+    <IfModule mod_dir.c>
+        DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm
+    </IfModule>
+- owner: root:root
+  path: /lib/systemd/system/node_exporter.service
+  content: |
+    [Unit]
+    Description=Node Exporter
+    Wants=network-online.target
+    After=network-online.target
+    [Service]
+    User=prometheus
+    Type=simple
+    ExecStart=/opt/prometheus/node_exporter
+    [Install]
+    WantedBy=multi-user.target
+runcmd:
+  - grep prometheus /etc/passwd > /dev/null || useradd -d /opt/prometheus -m prometheus
+  - cd /opt/prometheus
+  - wget https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz
+  - tar xf node_exporter-0.18.1.linux-amd64.tar.gz --strip 1
+  - systemctl daemon-reload
+  - systemctl enable node_exporter
+  - systemctl start node_exporter
